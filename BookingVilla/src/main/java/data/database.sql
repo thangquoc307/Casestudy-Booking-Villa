@@ -190,7 +190,7 @@ inner join `image_detail_links` on `image_detail_links`.`villa_id` = `villas`.`v
 
 delimiter //
 create procedure get_detail_img()
-select `villa_id`, `image_detail` from `image_detail_links`
+select `villa_id`, `image_detail`,`image_id` from `image_detail_links`
 where `is_delete` = 0;
 end //
 delimiter ;
@@ -215,3 +215,4 @@ select ifnull(`positions`.`position_name`,"customer"), `accounts`.`user_name`, `
     and `accounts`.`password_account` = `password_login`;
 end //
 delimiter ;
+

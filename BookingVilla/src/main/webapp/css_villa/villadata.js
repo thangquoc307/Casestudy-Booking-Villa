@@ -50,6 +50,12 @@ function openEditBoard(index){
     document.getElementById("input-kitchen").value = villaDetail.kitchen;
     document.getElementById("input-bedroom").value = villaDetail.bedroom;
 
+    let arrayPicture = `<img id="add-detail-picture" class="array-detail-picture boxshadow-outset"></img>`;
+    for (let i = 0; i < villaDetail.getImg().length; i++){
+        arrayPicture += `<img src="${villaDetail.getImg()[i]}" class="array-detail-picture boxshadow-outset"></img>`
+    }
+    document.getElementById("picture").innerHTML = arrayPicture;
+
 }
 function closeEditBoard(){
     let board = document.getElementById("edit-board");

@@ -4,6 +4,7 @@ import java.util.List;
 
 public class Villa {
     private List<String> img;
+    private List<Integer> imgId;
     private int price;
     private int level;
     private double area;
@@ -20,7 +21,7 @@ public class Villa {
     private int capacity;
     private int villaId;
 
-    public Villa(int villaId, List<String> img, int price, int level, double area, double width, double deep, String map, int bedroom, int kitchen, int living, int toilet, int relax, int gym, int garage, int capacity) {
+    public Villa(int villaId, List<String> img, int price, int level, double area, double width, double deep, String map, int bedroom, int kitchen, int living, int toilet, int relax, int gym, int garage, int capacity, List<Integer> imgId) {
         this.img = img;
         this.price = price;
         this.level = level;
@@ -37,6 +38,14 @@ public class Villa {
         this.garage = garage;
         this.capacity = capacity;
         this.villaId = villaId;
+        this.imgId = imgId;
+    }
+    public List<Integer> getImgId() {
+        return imgId;
+    }
+
+    public void setImgId(List<Integer> imgId) {
+        this.imgId = imgId;
     }
 
     public int getCapacity() {

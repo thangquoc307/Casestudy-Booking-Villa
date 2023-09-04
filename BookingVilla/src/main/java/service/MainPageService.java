@@ -57,6 +57,7 @@ public class MainPageService implements IMainPageService{
     private String convertVillaToString(Villa villa){
         String data = "new villa(";
         List<String> villaImg = villa.getImg();
+        List<Integer> villaImgId = villa.getImgId();
 
         data += "[";
         for (int i = 0; i < villaImg.size(); i++){
@@ -81,8 +82,17 @@ public class MainPageService implements IMainPageService{
         data += villa.getRelax() + ",";
         data += villa.getGym() + ",";
         data += villa.getGarage() + ",";
-        data += villa.getVillaId() + ")";
+        data += villa.getVillaId() + ",";
 
+        data += "[";
+        for (int i = 0; i < villaImgId.size(); i++){
+            data += villaImgId.get(i);
+            if (i == villaImgId.size() - 1){
+                data += "])";
+            } else {
+                data += ",";
+            }
+        }
         return data;
     }
 }

@@ -1,5 +1,5 @@
 class villa {
-    constructor(img, price, level, area, width, deep, map, bedroom, kitchen, living, toilet, relax, gym, garage, id) {
+    constructor(img, price, level, area, width, deep, map, bedroom, kitchen, living, toilet, relax, gym, garage,id,imgId) {
         this.id = id;
         this.img = img;
         this.price = price;
@@ -15,6 +15,10 @@ class villa {
         this.relax = relax;
         this.gym = gym;
         this.garage = garage;
+        this.imgId = imgId;
+    }
+    getImgId(){
+        return this.imgId;
     }
     getId(){
         return this.id;
@@ -133,5 +137,8 @@ class villa {
     }
     setGarage(garage){
         this.garage = garage;
+    }
+    setImgId(imgId){
+        this.imgId = imgId;
     }
 }

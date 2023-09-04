@@ -99,9 +99,7 @@
     <div id="detail-board-description" class="align-board">
         <table id="table-description"></table>
     </div>
-    <div id="detail-board-booking" class="align-board">
-        <p class="backgroundcolor-3 hover boxshadow-outset" id="detail-board-booking-price"></p>
-    </div>
+    <div id="detail-board-booking" class="align-board"></div>
     <div id="close-detail-board" class="backgroundcolor-3 hover boxshadow-outset" onclick="close_detail_board()"></div>
 </div>
 
@@ -117,10 +115,11 @@
 <script>
     let role = '${role}';
     let userName = '${user_name}';
+    var checkRole = (role == "1" || role == "2" || role == "3");
 
     if (role == "0"){
         loginDisplay();
-    } else if (role == "1" || role == "2" || role == "3") {
+    } else if (checkRole) {
         login(userName);
     }
     displayButton(role);

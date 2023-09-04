@@ -17,6 +17,7 @@ public class MainPageRepository implements IMainPageRepository{
     public List<Villa> loadingDataBaseVilla() {
         System.out.println("repository loading all");
         Map<Integer, List<String>> detailImg = new HashMap<>();
+        Map<Integer, List<Integer>> detailImgId = new HashMap<>();
         List<Villa> villaList = new ArrayList<>();
 
         Connection connection = BaseRepository.getConnection();
@@ -28,13 +29,19 @@ public class MainPageRepository implements IMainPageRepository{
             while (resultSetImg.next()){
                 int villaId = resultSetImg.getInt(1);
                 String link = resultSetImg.getString(2);
+                int imgId = Integer.parseInt(resultSetImg.getString(3));
 
                 if (detailImg.containsKey(villaId)){
                     detailImg.get(villaId).add(link);
+                    detailImgId.get(villaId).add(imgId);
                 } else {
                     List<String> detailImgLink = new ArrayList<>();
                     detailImgLink.add(link);
                     detailImg.put(villaId, detailImgLink);
+
+                    List<Integer> detailImgLinkId = new ArrayList<>();
+                    detailImgLinkId.add(imgId);
+                    detailImgId.put(villaId, detailImgLinkId);
                 }
             }
 
@@ -57,12 +64,15 @@ public class MainPageRepository implements IMainPageRepository{
                 int capacity = resultSetVilla.getInt(15);
 
                 List<String> listImg;
+                List<Integer> listImgId;
                 if (detailImg.containsKey(villaId)){
                     listImg = detailImg.get(villaId);
+                    listImgId = detailImgId.get(villaId);
                 } else {
                     listImg = new ArrayList<>();
+                    listImgId = new ArrayList<>();
                 }
-                villaList.add(new Villa(villaId,listImg, price, level, area, width, deep, map, bedroom, kitchen, living, toilet, relax, gym, garage, capacity));
+                villaList.add(new Villa(villaId,listImg, price, level, area, width, deep, map, bedroom, kitchen, living, toilet, relax, gym, garage, capacity,listImgId));
             }
 
         } catch (SQLException e) {

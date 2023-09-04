@@ -57,6 +57,15 @@ function detailVilla(index){
     let board = document.getElementById("detail-board");
     let close = document.getElementById("close-detail-board");
     let map = document.getElementById("map");
+
+    let price = `<p class="backgroundcolor-3 hover boxshadow-outset" id="detail-board-booking-price"`;
+    if (checkRole){
+        price += ` onclick="booking()">Booking : ${toPriceString(villa.getPrice())}`;
+    } else {
+        price += ` onclick="signup()">Đăng nhập để sử dụng`;
+    }
+    price += `</p>`;
+
     board.style.display = "grid";
     close.style.display = "block";
     map.style.backgroundImage = `url(${villa.getMap()})`;
@@ -65,7 +74,7 @@ function detailVilla(index){
         dataArray += `<img onclick="change_main_img('${villa.getImg()[i]}')" class="image-array boxshadow-outset hover-in" src="${villa.getImg()[i]}">`
     }
     document.getElementById("detail-board-picture-array-branch").innerHTML = dataArray;
-    document.getElementById("detail-board-booking-price").innerHTML = "Booking : " + toPriceString(villa.getPrice());
+    document.getElementById("detail-board-booking").innerHTML = price;
     let dataMainPicture = villa.getImg()[0];
     document.getElementById("detail-board-picture-array-main").style.backgroundImage = `url("${dataMainPicture}")`;
     let description = [];
@@ -117,3 +126,5 @@ function closeLogin(){
     loginButton.style.display = "block";
     signUpButton.style.display = "block";
 }
+function booking(){}
+function signup(){}

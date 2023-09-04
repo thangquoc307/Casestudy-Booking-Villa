@@ -17,6 +17,7 @@
 #sign{
     display: grid;
     grid-template-columns: 1fr 1fr;
+    align-items: center;
 }
 #userName{
     display: flex;
@@ -371,6 +372,7 @@
     padding: 1%;
     border-radius: 30px;
     width: 13%;
+    opacity: 0.8;
 }
 #login input{
     margin-left: 5%;
