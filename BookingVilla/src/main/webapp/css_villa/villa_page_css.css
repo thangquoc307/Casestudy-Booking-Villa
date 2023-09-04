@@ -1,0 +1,230 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin:wght@500&family=Roboto:wght@500&display=swap');
+* {
+    font-family: 'Roboto', sans-serif;
+    color: #5D7B6F;
+    box-sizing: border-box;
+}
+#header {
+    display: grid;
+    padding: 20px;
+    border-radius: 30px;
+    grid-template-columns: 350px auto 350px;
+    background-color: white;
+    text-align: center;
+    margin-bottom: 40px;
+}
+#sign{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+#userName{
+    display: flex;
+    height: 80%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    scale: 1.1;
+}
+#logout{
+    border-radius: 40px;
+    display: flex;
+    height: 60%;
+    width: 60%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#villa-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.villa{
+    background-color: white;
+    width: 93%;
+    height: 400px;
+    margin-bottom: 40px;
+    border-radius: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 5fr 1fr;
+    transition-duration: 0.2s;
+    border: white 4px solid;
+    grid-template-areas: "picture picture" "edit delete";
+}
+.villa:hover{
+    transition-duration: 0.2s;
+    animation: choose 1s infinite;
+}
+#addVilla{
+    background-image: url("icon/add.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 15%;
+}
+@keyframes choose {
+    0% {
+        border: #A4C3A2 4px solid;
+    }
+    50% {
+        border: #F15F90 4px solid;
+    }
+    100% {
+        border: #A4C3A2 4px solid;
+    }
+}
+.villa-picture {
+    grid-area: picture;
+    width: 96%;
+    margin-top: 2%;
+    margin-left: 2%;
+    border-radius: 30px;
+    background-position: center;
+    background-size: cover;
+    transition: background-image 0.5s ease-in-out;
+}
+.villa button {
+    width: 86%;
+    margin-left: 7%;
+    margin-right: 7%;
+    height: 60%;
+    border-radius: 50px;
+    margin-top: 5%;
+    font-size: 15px;
+    border: none;
+}
+.edit{
+    grid-area: edit;
+}
+
+.delete{
+    grid-area: delete;
+}
+#edit-board{
+    display: none;
+    position: fixed;
+    border-radius: 30px;
+    background-color: rgba(255,255,255,0.9);
+    grid-template-columns: 3fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 3fr 1fr 1fr 1fr 0.8fr;
+    grid-template-areas: "array-picture array-picture array-picture array-picture array-picture"
+                        "map area width deep price"
+                        "map level garage gym relax"
+                        "map toilet living kitchen bedroom"
+                        "map none none close finish";
+}
+#picture{
+    grid-area: array-picture;
+    width: 100%;
+    height: 100%;
+    /*margin-top: 5%;*/
+    /*margin-left: 5%;*/
+    background-color: #d61b06;
+    border-radius: 30px;
+}
+#map-picture{
+    grid-area: map;
+    width: 100%;
+    height: 100%;
+    /*margin-top: 5%;*/
+    /*margin-left: 5%;*/
+    background-color: #F15F90;
+    border-radius: 30px;
+}
+#area{
+    grid-area: area;
+}
+#width{
+    grid-area: width;
+}
+#deep{
+    grid-area: deep;
+}
+#price{
+    grid-area: price;
+}
+#level{
+    grid-area: level;
+}
+#garage{
+    grid-area: garage;
+}
+#gym{
+    grid-area: gym;
+}
+#relax{
+    grid-area: relax;
+}
+#toilet{
+    grid-area: toilet;
+}
+#living{
+    grid-area: living;
+}
+#kitchen{
+    grid-area: kitchen;
+}
+#bedroom{
+    grid-area: bedroom;
+}
+#button-close{
+    grid-area: close;
+}
+#button-finish{
+    grid-area: finish;
+}
+#edit-board div{
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    width: 90%;
+    height: 90%;
+}
+#edit-board button{
+    width: 85%;
+    height: 60%;
+    border: none;
+    border-radius: 30px;
+    font-size: 120%;
+}
+
+
+
+
+
+
+.hover{
+    transition-duration: 0.2s;
+}
+.hover:hover{
+    scale: 1.1;
+    background-color: #B0D4B8;
+    color: white;
+    transition-duration: 0.2s;
+}
+.boxshadow-inset{
+    box-shadow: inset 10px 10px 20px #5D7B6F;
+}
+.boxshadow-outset{
+    box-shadow: 10px 10px 20px #5D7B6F;
+}
+.backgroundcolor-5{
+    background-color: #5D7B6F;
+    color: white;
+}
+.backgroundcolor-4{
+    background-color: #A4C3A2;
+    color: white;
+}
+.backgroundcolor-3{
+    background-color: #B0D4B8;
+    color: white;
+}
+.backgroundcolor-2{
+    background-color: #EAE7D6;
+}
+.backgroundcolor-1{
+    background-color: #D7F9FA;
+}
+::-webkit-scrollbar {
+    width: 0;
+}
