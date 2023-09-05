@@ -337,9 +337,9 @@
     padding-bottom: 2%;
 }
 #detail-board-description table tr td p{
-    width: 85%;
+    width: 90%;
     height: 90%;
-    padding: 15px;
+    padding: 10px;
     text-align: center;
     border-radius: 30px;
 }

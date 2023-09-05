@@ -13,6 +13,11 @@ public class MainPageRepository implements IMainPageRepository{
     private static final String GET_DETAIL_IMG = "call get_detail_img();";
     private static final String GET_ALL_VILLA = "call get_all_villa();";
     private static final String LOGIN = "call check_account(?,?);";
+    private static final String DELETE_VILLA = "update `villa_booking`.`villas` set `is_delete` = 1 where (`villa_id` = ?);";
+    private static final String EDIT = "update `villa_booking`.`villas` set `area` = ?, `level` = ?, " +
+                                        "`width` = ?, `deep` = ?, `garage` = ?, `gym_room` = ?, `relax_room` = ?, " +
+                                        "`toilet` = ?, `living_room` = ?, `kitchen_room` = ?, `bedroom` = ?, `price` = ?, " +
+                                        "`capacity` = ?  where (`villa_id` = ?);";
     @Override
     public List<Villa> loadingDataBaseVilla() {
         System.out.println("repository loading all");
@@ -92,13 +97,40 @@ public class MainPageRepository implements IMainPageRepository{
     }
 
     @Override
-    public void editVilla(int villaId, Villa newVilla) {
-
+    public void editVilla(int villaId, double area, double width, double deep, int price, int level, int garage, int gym, int relax, int toilet, int living, int kitchen, int bedroom, int capacity) {
+        Connection connection = BaseRepository.getConnection();
+        try {
+            PreparedStatement statement = connection.prepareStatement(EDIT);
+            statement.setDouble(1, area);
+            statement.setInt(2, level);
+            statement.setDouble(3, width);
+            statement.setDouble(4, deep);
+            statement.setInt(5, garage);
+            statement.setInt(6, gym);
+            statement.setInt(7, relax);
+            statement.setInt(8, toilet);
+            statement.setInt(9, living);
+            statement.setInt(10, kitchen);
+            statement.setInt(11, bedroom);
+            statement.setInt(12, price);
+            statement.setInt(13, capacity);
+            statement.setInt(14, villaId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public void deleteVilla(int villaId) {
-
+        Connection connection = BaseRepository.getConnection();
+        try {
+            PreparedStatement statement = connection.prepareStatement(DELETE_VILLA);
+            statement.setInt(1, villaId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

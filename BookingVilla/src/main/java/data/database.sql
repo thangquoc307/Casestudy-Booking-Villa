@@ -184,12 +184,9 @@ insert into `bookings`(`check_in`,`check_out`,`price`,`deposit`,`villa_id`,`cust
 values
 ("2022-08-10","2022-08-11", 3730000, 400000, 10, 4, "Lê Nin", "0989997564");
 
-select * from `villas`
-inner join `image_detail_links` on `image_detail_links`.`villa_id` = `villas`.`villa_id`
-
-
 delimiter //
 create procedure get_detail_img()
+begin
 select `villa_id`, `image_detail`,`image_id` from `image_detail_links`
 where `is_delete` = 0;
 end //
@@ -197,6 +194,7 @@ delimiter ;
 
 delimiter //
 create procedure get_all_villa()
+begin
 select `villa_id`,`image_map`,`area`,`level`,`width`,`deep`,`garage`,`gym_room`,`relax_room`,`toilet`,`living_room`,`kitchen_room`,`bedroom`,`price`,`capacity` from `villas`
 where `is_delete` = 0;
 end //
@@ -213,6 +211,30 @@ select ifnull(`positions`.`position_name`,"customer"), `accounts`.`user_name`, `
     where `accounts`.`is_delete` = 0 
     and ifnull(`employees`.`phone_number`, `customers`.`phone_number`) = `acount_login` 
     and `accounts`.`password_account` = `password_login`;
+end //
+delimiter ;
+
+delimiter //
+create procedure create_employee(
+	`new_user_name` varchar(100),
+    `new_password_account` varchar(100),
+    `new_name` varchar(50),
+    `new_identity_number` varchar(15),
+    `new_birthday` date,
+    `new_gender` bit(1),
+    `new_phone_number` varchar(20),
+    `new_email` varchar(50)
+    )
+begin
+    declare `new_account_code` int;
+    set `new_account_code` = (select MAX(`employee_code`) + 1 from `employees`);
+    insert into `accounts`(`user_name`, `password_account`)
+    values
+    (`new_user_name`, `new_password_account`);
+    
+    insert into `employees`(`name`, `identity_number`, `birthday`, `gender`, `phone_number`, `email`, `account_code`,`position_code`)
+    values
+    (`new_name`, `new_identity_number`, `new_birthday`, `new_gender`, `new_phone_number`, `new_email`, `new_account_code`, 2);
 end //
 delimiter ;
 

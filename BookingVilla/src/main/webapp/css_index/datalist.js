@@ -78,9 +78,9 @@ function detailVilla(index){
     let dataMainPicture = villa.getImg()[0];
     document.getElementById("detail-board-picture-array-main").style.backgroundImage = `url("${dataMainPicture}")`;
     let description = [];
-    let dataFull = ["Diện tích : " + villa.getArea() + " m<sup>2</sup>","Số tầng : " + villa.getLevel(),
-        "Chiều dài : " + villa.getWidth() + " m", "Chiều sâu : " + villa.getDeep() + " m",villa.getKitchen(),
-        villa.getBedroom(),villa.getLiving(),villa.getToilet(),villa.getRelax(),villa.getGym(),
+    let dataFull = ["Diện tích : " + villa.getArea() + " m<sup>2</sup>",
+        "Chiều dài : " + villa.getWidth() + " m", "Chiều sâu : " + villa.getDeep() + " m", villa.getCapacity(), villa.getKitchen(),
+        villa.getBedroom(),villa.getLiving(),villa.getToilet(),villa.getRelax(),villa.getGym(),"Số tầng : " + villa.getLevel(),
         villa.getGarage()];
     for (let i = 0; i < dataFull.length; i++){
         if (dataFull[i] != 0){

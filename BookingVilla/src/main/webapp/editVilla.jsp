@@ -14,7 +14,7 @@
 </head>
 <body class="backgroundcolor-2">
 <div id="header" class="boxshadow-outset">
-    <img src="https://drive.google.com/uc?id=1cH2mCtzpEW1JtCt0qkxoD6PtEGbuT35c" width="100%"/>
+    <img onclick="backToMainPage()" src="https://drive.google.com/uc?id=1cH2mCtzpEW1JtCt0qkxoD6PtEGbuT35c" width="100%"/>
     <div></div>
     <div id="sign">
         <div id="userName"></div>
@@ -23,28 +23,43 @@
 </div>
 <div id="villa-list"></div>
 
-<form id="edit-board" class="backgroundcolor-2 boxshadow-outset" action="/main-page-controller?action=edit" method="post">
+<form id="edit-board" class="backgroundcolor-2 boxshadow-outset" action="/main-page-controller?action=edit-villa" method="post">
     <div id="picture" class="boxshadow-inset"></div>
-    <div id="map-picture" class="boxshadow-outset"></div>
+    <div id="map-picture" class="boxshadow-inset">
+        <div id="map-detail-picture"></div>
+        <div id="map-change">
+            <h3>Tải ảnh thay thế</h3>
+            <input type="file" name="change-map">
+        </div>
+    </div>
+    <input id="villaId" type="hidden" name="villa-id">
 
-    <div id="area"><p>Diện tích (m<sup>2</sup>)</p><input id="input-area" name="area" type="number"></div>
-    <div id="width"><p>Chiều dài (m)</p><input id="input-width" name="width" type="number"></div>
-    <div id="deep"><p>Chiều sâu (m)</p><input id="input-deep" name="deep" type="number"></div>
-    <div id="price"><p>Giá thuê (VND)</p><input id="input-price" name="price" type="number"></div>
+    <div id="area"><p>Diện tích (m<sup>2</sup>)</p><input required id="input-area" name="area" type="number"></div>
+    <div id="width"><p>Chiều dài (m)</p><input required id="input-width" name="width" type="number"></div>
+    <div id="deep"><p>Chiều sâu (m)</p><input required id="input-deep" name="deep" type="number"></div>
+    <div id="price"><p>Giá thuê (VND)</p><input required id="input-price" name="price" type="number"></div>
 
-    <div id="level"><p>Số tầng</p><input id="input-level" name="level" type="number"></div>
-    <div id="garage"><p>Số hầm</p><input id="input-garage" name="garage" type="number"></div>
-    <div id="gym"><p>Phòng gym</p><input id="input-gym" name="gym" type="number"></div>
-    <div id="relax"><p>Phòng giải trí</p><input id="input-relax" name="relax" type="number"></div>
-    <div id="toilet"><p>Toilet</p><input id="input-toilet" name="toilet" type="number"></div>
-    <div id="living"><p>Phòng khách</p><input id="input-living" name="living" type="number"></div>
-    <div id="kitchen"><p>Bếp ăn</p><input id="input-kitchen" name="kitchen" type="number"></div>
-    <div id="bedroom"><p>Phòng ngủ</p><input id="input-bedroom" name="bedroom" type="number"></div>
+    <div id="level"><p>Số tầng</p><input required id="input-level" name="level" type="number"></div>
+    <div id="garage"><p>Số hầm</p><input required id="input-garage" name="garage" type="number"></div>
+    <div id="gym"><p>Phòng gym</p><input required id="input-gym" name="gym" type="number"></div>
+    <div id="relax"><p>Phòng giải trí</p><input required id="input-relax" name="relax" type="number"></div>
+    <div id="toilet"><p>Toilet</p><input required id="input-toilet" name="toilet" type="number"></div>
+    <div id="living"><p>Phòng khách</p><input required id="input-living" name="living" type="number"></div>
+    <div id="kitchen"><p>Bếp ăn</p><input required id="input-kitchen" name="kitchen" type="number"></div>
+    <div id="bedroom"><p>Phòng ngủ</p><input required id="input-bedroom" name="bedroom" type="number"></div>
+    <div id="capacity"><p>Sức chứa</p><input required id="input-capacity" name="capacity" type="number"></div>
 
     <button id="button-close" class="hover backgroundcolor-4" type="reset" onclick="closeEditBoard()">Hủy</button>
     <button id="button-finish" class="hover backgroundcolor-4" type="submit">Hoàn thành</button>
 </form>
 
+<form id="delete-board" action="/main-page-controller?action=delete-villa" method="post"
+      class="backgroundcolor-2 boxshadow-outset">
+    <h2 id="alert-delete-board">Bạn muốn xóa Villa ???</h2>
+    <input id="villa-delete" name="villa-id" type="hidden">
+    <button id="delete-delete-board" class="backgroundcolor-3 hover boxshadow-inset" type="submit">Xóa</button>
+    <button id="close-delete-board" class="backgroundcolor-3 hover boxshadow-inset" type="button" onclick="closeDeleteBoard()">Trở lại</button>
+</form>
 
 </body>
 <script src="css_index/villaclass.js"></script>

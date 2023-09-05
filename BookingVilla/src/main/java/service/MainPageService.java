@@ -39,12 +39,29 @@ public class MainPageService implements IMainPageService{
 
     @Override
     public void editVilla(HttpServletRequest request, HttpServletResponse response) {
+        int villaId = Integer.parseInt(request.getParameter("villa-id"));
+        double area = Double.parseDouble(request.getParameter("area"));
+        double width = Double.parseDouble(request.getParameter("width"));
+        double deep = Double.parseDouble(request.getParameter("deep"));
+        int price = Integer.parseInt(request.getParameter("price"));
+        int level = Integer.parseInt(request.getParameter("level"));
+        int garage = Integer.parseInt(request.getParameter("garage"));
+        int gym = Integer.parseInt(request.getParameter("gym"));
+        int relax = Integer.parseInt(request.getParameter("relax"));
+        int toilet = Integer.parseInt(request.getParameter("toilet"));
+        int living = Integer.parseInt(request.getParameter("living"));
+        int kitchen = Integer.parseInt(request.getParameter("kitchen"));
+        int bedroom = Integer.parseInt(request.getParameter("bedroom"));
+        int capacity = Integer.parseInt(request.getParameter("capacity"));
 
+        mainPageRepository.editVilla(villaId, area, width, deep, price, level, garage,
+                gym, relax, toilet, living, kitchen, bedroom, capacity);
     }
 
     @Override
     public void deleteVilla(HttpServletRequest request, HttpServletResponse response) {
-
+        int villaId = Integer.parseInt(request.getParameter("villa-id"));
+        mainPageRepository.deleteVilla(villaId);
     }
 
     @Override
@@ -83,6 +100,7 @@ public class MainPageService implements IMainPageService{
         data += villa.getGym() + ",";
         data += villa.getGarage() + ",";
         data += villa.getVillaId() + ",";
+        data += villa.getCapacity() + ",";
 
         data += "[";
         for (int i = 0; i < villaImgId.size(); i++){

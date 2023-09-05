@@ -107,13 +107,13 @@
     position: fixed;
     border-radius: 30px;
     background-color: rgba(255,255,255,0.9);
-    grid-template-columns: 3fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 3fr 1fr 1fr 1fr 0.8fr;
-    grid-template-areas: "array-picture array-picture array-picture array-picture array-picture"
-                        "map area width deep price"
-                        "map level garage gym relax"
-                        "map toilet living kitchen bedroom"
-                        "map none none close finish";
+    grid-template-areas: "array-picture array-picture array-picture array-picture array-picture array-picture"
+                        "map area width deep price capacity"
+                        "map level garage gym relax bedroom"
+                        "map toilet living kitchen none1 none1"
+                        "map none none none close finish";
 }
 #picture{
     grid-area: array-picture;
@@ -145,8 +145,56 @@
 }
 #map-picture{
     grid-area: map;
-    background-color: #F15F90;
     border-radius: 30px;
+    display: grid;
+    grid-template-rows: 4fr 1fr;
+    grid-template-areas: "map-picture" "button-change";
+}
+#map-detail-picture{
+    grid-area: map-picture;
+    margin-top: 2.5%;
+    height: 95%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+#map-change{
+    grid-area: button-change;
+    margin-left: 5%;
+}
+#map-change h3{
+    margin: 2%;
+}
+#delete-board{
+    opacity: 0.9;
+    position: fixed;
+    width: 20%;
+    height: 150px;
+    top: 20%;
+    left: 40%;
+    border-radius: 20px;
+    display: none;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: "alert-delete-board alert-delete-board" "delete-delete-board close-delete-board";
+}
+#delete-board button{
+    width: 80%;
+    height: 50px;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 10%;
+    border-radius: 50px;
+}
+#alert-delete-board{
+    text-align: center;
+    grid-area: alert-delete-board;
+}
+#delete-delete-board{
+    grid-area: delete-delete-board;
+}
+#close-delete-board{
+    grid-area: close-delete-board;
 }
 
 #area{
@@ -185,6 +233,9 @@
 #bedroom{
     grid-area: bedroom;
 }
+#capacity{
+    grid-area: capacity;
+}
 #button-close{
     grid-area: close;
 }
@@ -205,12 +256,6 @@
     border-radius: 30px;
     font-size: 120%;
 }
-
-
-
-
-
-
 
 .hover{
     transition-duration: 0.2s;

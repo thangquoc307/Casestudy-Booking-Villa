@@ -66,6 +66,13 @@ public class MainPageController extends HttpServlet {
                     request.getRequestDispatcher("editVilla.jsp").forward(request,response);
                 }
                 break;
+            case "backToMain":
+                String dataVillaReload = mainPageService.loadingDataBaseVilla(request,response);
+                request.setAttribute("data", dataVillaReload);
+                request.setAttribute("role", getRole());
+                request.setAttribute("user_name", getUser());
+                request.setAttribute("loginfail", 0);
+                request.getRequestDispatcher("/index.jsp").forward(request,response);
         }
     }
 
@@ -112,6 +119,26 @@ public class MainPageController extends HttpServlet {
                 }
                 request.getRequestDispatcher("/index.jsp").forward(request,response);
                 break;
+            case "delete-villa":
+                if (getRole() == 3) {
+                    mainPageService.deleteVilla(request,response);
+                    System.out.println("delete villa");
+                }
+                String manageVillaData = mainPageService.loadingDataBaseVilla(request,response);
+                request.setAttribute("data", manageVillaData);
+                request.setAttribute("user_name", getUser());
+                request.getRequestDispatcher("editVilla.jsp").forward(request,response);
+                break;
+            case "edit-villa":
+                if (getRole() == 3){
+                    mainPageService.editVilla(request,response);
+                }
+                String manageVillaEdit = mainPageService.loadingDataBaseVilla(request,response);
+                request.setAttribute("data", manageVillaEdit);
+                request.setAttribute("user_name", getUser());
+                request.getRequestDispatcher("editVilla.jsp").forward(request,response);
+                break;
+
         }
     }
 }

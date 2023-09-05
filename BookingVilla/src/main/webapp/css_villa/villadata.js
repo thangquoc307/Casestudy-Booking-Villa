@@ -7,7 +7,7 @@ function showVillaList(){
             `<div class="villa boxshadow-outset" onmouseover="hoverVilla(${i})" onmouseleave="stopHover(${i})">
                 <div class="villa-picture" id="villa-${i}" style="background-image: url('${villa.getImg()[0]}')"></div>
                 <button onclick="openEditBoard(${i})" class="edit backgroundcolor-2 hover">Sửa</button>
-                <button class="delete backgroundcolor-2 hover">Xóa</button>
+                <button onclick="deleteVilla(${villa.getId()})" class="delete backgroundcolor-2 hover">Xóa</button>
             </div>`
     }
     data += `<div class="villa boxshadow-outset" id="addVilla" onclick="addVilla()"></div>`
@@ -49,16 +49,33 @@ function openEditBoard(index){
     document.getElementById("input-living").value = villaDetail.living;
     document.getElementById("input-kitchen").value = villaDetail.kitchen;
     document.getElementById("input-bedroom").value = villaDetail.bedroom;
+    document.getElementById("input-capacity").value = villaDetail.capacity;
+    document.getElementById("villaId").value = villaDetail.getId();
 
-    let arrayPicture = `<img id="add-detail-picture" class="array-detail-picture boxshadow-outset"></img>`;
+    let arrayPicture = `<img id="add-detail-picture" onclick="addDetailPicture(${villaDetail.getId()})" class="array-detail-picture boxshadow-outset hover-in"></img>`;
     for (let i = 0; i < villaDetail.getImg().length; i++){
         arrayPicture += `<img src="${villaDetail.getImg()[i]}" class="array-detail-picture boxshadow-outset"></img>`
     }
     document.getElementById("picture").innerHTML = arrayPicture;
 
+    document.getElementById("map-detail-picture").style.backgroundImage = `url("${villaDetail.getMap()}")`;
 }
 function closeEditBoard(){
     let board = document.getElementById("edit-board");
     board.style.display = "none";
 }
 function addVilla(){}
+function addDetailPicture(villaId){}
+function deleteVilla(villaId){
+    let villaDelete = document.getElementById("delete-board");
+    villaDelete.style.display = "grid";
+    document.getElementById("villa-delete").value = villaId;
+}
+
+function closeDeleteBoard(){
+    let villaDelete = document.getElementById("delete-board");
+    villaDelete.style.display = "none";
+}
+function backToMainPage(){
+    window.location.href = "/main-page-controller?action=backToMain";
+}
