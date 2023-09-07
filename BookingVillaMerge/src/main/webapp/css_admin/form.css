@@ -1,0 +1,54 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.employee-table {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+    width: 30%;
+}
+
+.employee-form {
+    margin-bottom: 15px;
+}
+
+.employee-form h2 {
+    text-align: center;
+}
+
+.employee-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.employee-form label {
+    margin-bottom: 5px;
+}
+
+.employee-form input,
+.employee-form select {
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+.employee-form button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.logo {
+    text-align: center;
+}
+
+.logo img {
+    width: 200px;
+    height: auto;
+}

@@ -1,0 +1,515 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin:wght@500&family=Roboto:wght@500&display=swap');
+* {
+    font-family: 'Roboto', sans-serif;
+    color: #5D7B6F;
+    box-sizing: border-box;
+}
+
+#header {
+    display: grid;
+    padding: 20px;
+    border-radius: 30px;
+    grid-template-columns: 350px auto 350px;
+    background-color: white;
+    text-align: center;
+    margin-bottom: 40px;
+}
+#sign{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+}
+#userName{
+    display: flex;
+    height: 80%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    scale: 1.1;
+}
+#logout{
+    border-radius: 40px;
+    display: flex;
+    height: 60%;
+    width: 60%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#header button {
+    width: 85%;
+    height: 60%;
+    border-radius: 50px;
+    margin-top: 5%;
+    font-size: 15px;
+    border: none;
+}
+#context{
+    display: grid;
+    grid-template-columns: 1fr 4fr 5fr;
+    grid-template-rows: 3fr 10fr;
+    grid-template-areas: "clock clock main"
+                        "branch slide main";
+    background-color: white;
+    border-radius: 50px;
+}
+#month-detail {
+    font-size: 30px;
+}
+#calendar {
+    position: relative;
+    left: -45%;
+    top: 10%;
+    height: 60%;
+    opacity: 80%;
+    border-radius: 30px;
+    display: grid;
+    grid-template-areas: "month" "day";
+    grid-template-rows: 2fr 5fr;
+}
+#today{
+    background-color: #A4C3A2;
+    color: white;
+}
+.month p {
+    color: white;
+    margin: 3%;
+}
+.month {
+    padding: 10%;
+    grid-area: month;
+    text-align: center;
+}
+.weekdays {
+    grid-area: day;
+}
+#picture-main{
+    display: flex;
+    margin: 10px 15px;
+    grid-area: main;
+}
+#slide{
+    grid-area: slide;
+    width: 90%;
+    margin-left: 5%;
+    border-radius: 50px;
+    height: 95%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url("https://drive.google.com/uc?id=1PfK-3qJzHu1zJgvKX6r7ObHKiMYyvWF5");
+    animation: switch 20s infinite;
+}
+#calendar-table td {
+    text-align: center;
+    padding: 10px;
+}
+@keyframes switch {
+    0% {
+        background-image: url("slide/cover-1.jpg");
+    }
+    20% {
+        background-image: url("slide/cover-2.jpg");
+    }
+    40% {
+        background-image: url("slide/cover-3.jpg");
+    }
+    60% {
+        background-image: url("slide/cover-4.jpg");
+    }
+    80% {
+        background-image: url("slide/cover-5.jpg");
+    }
+    100% {
+        background-image: url("slide/cover-1.jpg");
+    }
+}
+#button-list{
+    grid-area: branch;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    padding-bottom: 5%;
+}
+#button-list button {
+    width: 80%;
+    height: 75%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 2%;
+    border: none;
+    border-radius: 50px;
+    font-size: 15px;
+}
+#clock{
+    grid-area: clock;
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+    color: #5D7B6F;
+}
+#booking {
+    display: grid;
+    grid-template-columns: 450px 1fr;
+    margin-top: 2%;
+}
+#contact {
+    width: 85%;
+    top: 5%;
+    left: 1%;
+    position: sticky;
+    background-color: white;
+    border-radius: 30px;
+}
+#contact-title {
+    padding-top: 25px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 22px;
+}
+#villa-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.price-overview{
+    padding: 7%;
+    display: inline-flex;
+    border-radius: 40px;
+    text-align: center;
+}
+.villa{
+    background-color: white;
+    width: 93%;
+    height: 400px;
+    margin-bottom: 40px;
+    border-radius: 40px;
+    display: grid;
+    grid-template-columns: 2fr 5fr;
+    grid-template-rows: 8fr 3fr;
+    transition-duration: 0.2s;
+    border: white 4px solid;
+}
+.villa:hover{
+    transition-duration: 0.2s;
+    animation: choose 1s infinite;
+}
+@keyframes choose {
+    0% {
+        border: #A4C3A2 4px solid;
+    }
+    50% {
+        border: #F15F90 4px solid;
+    }
+    100% {
+        border: #A4C3A2 4px solid;
+    }
+}
+.villa-description{
+    padding-left: 10%;
+    padding-top: 5%;
+}
+.villa-description-text{
+    color: #d61b06;
+    font-size: 18px;
+}
+.villa-picture {
+    margin-top: 2%;
+    margin-right: 2%;
+    border-radius: 30px;
+    background-position: center;
+    background-size: cover;
+    transition: background-image 0.5s ease-in-out;
+}
+#contact-table {
+    width: 90%;
+    padding-left: 5%;
+    border-spacing: 10px;
+
+}
+.contact-avata {
+    height: 65px;
+    width: 80px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50px;
+    border: #D7F9FA 5px double;
+}
+.contact-table tr td {
+    padding-top: 200px;
+}
+.contact-name {
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: normal;
+    padding: 10px;
+    text-align: center;
+}
+#back-to-top {
+    display: flex;
+    justify-content: right;
+}
+#back-to-top p {
+    width: 100px;
+    text-align: center;
+    padding: 15px;
+    border-radius: 30px;
+    margin-right: 4%;
+}
+.villa-price{
+    display: flex;
+    justify-content: right;
+}
+.villa-price p{
+    width: 70%;
+    text-align: center;
+    font-size: 18px;
+    margin-right: 5%;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#detail-board{
+    position: fixed;
+    background-color: rgba(255,255,255,0.9);
+    border-radius: 30px;
+    border: #5D7B6F 1px solid;
+    display: none;
+    animation: slide 1s;
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: 8fr 2fr;
+    grid-template-areas: "b-array b-sd" "b-description b-booking";
+}
+.align-board{
+    position: relative;
+    width: 97%;
+    height: 97%;
+    display: flex;
+
+    justify-self: center;
+    justify-content: center;
+    justify-items: center;
+}
+#detail-board-picture-array{
+    grid-area: b-array;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-areas: "picture-branch picture-main";
+    justify-content: center;
+}
+#detail-board-picture-array-branch{
+    grid-area: picture-branch;
+    overflow: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    border-radius: 30px;
+    border: #5D7B6F 1px solid;
+}
+#detail-board-picture-array-branch img{
+    width: 90%;
+    border-radius: 20px;
+    margin: 5%;
+}
+#detail-board-picture-array-main{
+    grid-area: picture-main;
+    width: 98%;
+    margin-left: 4%;
+    height: 94%;
+    margin-top: 3%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 20px;
+    border: white 4px solid;
+    transition: background-image 0.5s ease-in-out;
+}
+#detail-board-sd{
+    grid-area: b-sd;
+    top: 3%;
+}
+#detail-board-description{
+    grid-area: b-description;
+    justify-content: left;
+}
+#detail-board-description table{
+    width: 90%;
+    padding-bottom: 2%;
+}
+#detail-board-description table tr td p{
+    width: 90%;
+    height: 90%;
+    padding: 10px;
+    text-align: center;
+    border-radius: 30px;
+}
+#detail-board-booking{
+    grid-area: b-booking;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+#detail-board-booking-price{
+    font-size: 25px;
+    padding: 5%;
+    border-radius: 100px;
+}
+#map{
+    width: 90%;
+    height: 95%;
+    border: #5D7B6F 1px solid;
+    border-radius: 50px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+#login{
+    position: absolute;
+    top: 2%;
+    left: 85%;
+    display: none;
+    padding: 1%;
+    border-radius: 30px;
+    width: 13%;
+    opacity: 0.8;
+}
+#login input{
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 2%;
+    width: 90%;
+}
+#login button{
+    background-color: white;
+    padding: 1%;
+    transition-duration: 0.2s;
+}
+#login button:hover{
+    scale: 1.1;
+    transition-duration: 0.2s;
+}
+#close-detail-board{
+    position: fixed;
+    border-radius: 50px;
+    background-image: url("icon/close.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border: #5D7B6F 1px solid;
+}
+#logout-board{
+    position: fixed;
+    display: none;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 3fr 1fr;
+    grid-template-areas: "logout-alert logout-alert" "close logout";
+    border-radius: 20px;
+    top: 10%;
+    width: 26%;
+    left: 38%;
+    padding-top: 0;
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-bottom: 1%;
+}
+#logout-alert{
+    grid-area: logout-alert;
+}
+#logout-board button{
+    width: 90%;
+    border-radius: 30px;
+    transition-duration: 0.2s;
+}
+#logout-board button:hover{
+    scale: 1.05;
+    transition-duration: 0.2s;
+}
+#logout-board p{
+    color: white;
+}
+#count-down{
+    color: red;
+    scale: 1.1;
+}
+@keyframes slide {
+    from{
+        left: -100%;
+        opacity: 0;
+    }
+}
+.hover{
+    transition-duration: 0.2s;
+}
+.hover:hover{
+    scale: 1.1;
+    background-color: #B0D4B8;
+    color: white;
+    transition-duration: 0.2s;
+}
+.hover-in{
+    border: white 4px solid;
+    transition-duration: 0.2s;
+}
+.hover-in:hover{
+    scale: 0.95;
+    transition-duration: 0.2s;
+    animation: choose 1s infinite;
+}
+.boxshadow-inset{
+    box-shadow: inset 10px 10px 20px #5D7B6F;
+}
+.boxshadow-outset{
+    box-shadow: 10px 10px 20px #5D7B6F;
+}
+.backgroundcolor-5{
+    background-color: #5D7B6F;
+    color: white;
+}
+.backgroundcolor-4{
+    background-color: #A4C3A2;
+    color: white;
+}
+.backgroundcolor-3{
+    background-color: #B0D4B8;
+    color: white;
+}
+.backgroundcolor-2{
+    background-color: #EAE7D6;
+}
+.backgroundcolor-1{
+    background-color: #D7F9FA;
+}
+::-webkit-scrollbar {
+    width: 0;
+}
+@keyframes footerRuning {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+#footer{
+    height: 150px;
+    background-color: rgba(255,255,255,1);
+    border-radius: 30px;
+    overflow: hidden;
+
+}
+#footer div{
+    animation: footerRuning 10s steps(10000) infinite;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+#footer img{
+    display: inline-block;
+    height: 120px;
+}
+#footer p{
+    display: inline-block;
+    font-size: 50px;
+}
