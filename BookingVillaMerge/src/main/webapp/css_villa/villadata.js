@@ -36,6 +36,8 @@ function stopHover(index){
 }
 function openEditBoard(index){
     deleteList = [];
+    document.getElementById('input-detail-picture').value = '';
+    document.getElementById('inputfile').value = '';
     let villaDetail = dataVilla[index];
     let board = document.getElementById("edit-board");
     board.style.display = "grid";
@@ -56,6 +58,8 @@ function openEditBoard(index){
     document.getElementById("input-bedroom").value = villaDetail.bedroom;
     document.getElementById("input-capacity").value = villaDetail.capacity;
     document.getElementById("villaId").value = villaDetail.getId();
+    document.getElementById("inputMap").value = villaDetail.map;
+
 
     let arrayPicture = `<img id="add-detail-picture" onclick="addDetailPicture(${villaDetail.getId()})" class="array-detail-picture boxshadow-outset hover-in">`;
     for (let i = 0; i < villaDetail.getImg().length; i++){
@@ -71,7 +75,7 @@ function closeEditBoard(){
     board.style.display = "none";
 }
 function addVilla(){}
-function addDetailPicture(villaId){}
+
 function deleteVilla(villaId){
     let villaDelete = document.getElementById("delete-board");
     villaDelete.style.display = "grid";
@@ -138,4 +142,22 @@ function alertChooseAllPicture(){
 function closeAlertChooseAllPicture(){
     let alertWarning = document.getElementById("alert-choose-picture");
     alertWarning.style.display = "none";
+}
+function alertEditVilla(){
+    let alertWarning = document.getElementById("alert-edit-villa");
+    alertWarning.style.display = "grid";
+}
+function closeAlertEditVilla(){
+    let alertWarning = document.getElementById("alert-edit-villa");
+    alertWarning.style.display = "none";
+}
+function confirmEditVilla(){
+    let confirm = document.getElementById("actionEdit");
+    confirm.click();
+}
+function changeMap(){
+    document.getElementById("inputfile").click();
+}
+function addDetailPicture(){
+    document.getElementById("input-detail-picture").click();
 }

@@ -253,7 +253,6 @@ set is_delete = 1
 where employee_code = delete_id;
 end //
 DELIMITER ;
-call delete_employee(4);
 
 -- xoá khách hàng
 DELIMITER //
@@ -279,7 +278,6 @@ where bookings.is_delete = 0 and is_pending = 1 and accounts.account_code = find
 group by bookings.booking_id;
 end //
 delimiter ;
-call show_list_pending(3);
 delimiter //
 create procedure add_booking(`new_check_in` date,`new_check_out` date,`new_price` int,`new_deposit` int,
 	`new_check_in_person_name` varchar(50),`new_check_in_person_phone_number` varchar(50),`new_villa_id` int,`new_customer_code` int)
@@ -301,7 +299,6 @@ where bookings.is_delete = 0 and is_pending = 0 and accounts.account_code = find
 group by bookings.booking_id;
 end //
 delimiter ;
-call show_list_approved();
 -- Đã hủy
 delimiter //
 create procedure show_list_delete(find_by_account_code int)

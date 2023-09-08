@@ -13,13 +13,11 @@ function displayButton(role){
                     <button onclick="doGetByButton('feedback')" class="backgroundcolor-2 hover">Phản hồi</button>`
             break;
         case "2":
-            data = `<button onclick="doGetByButton('my profile')" class="backgroundcolor-2 hover">Tài khoản</button>
-                    <button onclick="doGetByButton('accept booking')" class="backgroundcolor-2 hover">Duyệt booking</button>
+            data = `<button onclick="doGetByButton('accept booking')" class="backgroundcolor-2 hover">Duyệt booking</button>
                     <button onclick="doGetByButton('customer account')" class="backgroundcolor-2 hover">Khách hàng</button>`
             break;
         case "3":
-            data = `<button onclick="doGetByButton('my profile')" class="backgroundcolor-2 hover">Tài khoản</button>
-                    <button onclick="doGetByButton('villa manage')" class="backgroundcolor-2 hover">Villa</button>
+            data = `<button onclick="doGetByButton('villa manage')" class="backgroundcolor-2 hover">Villa</button>
                     <button onclick="doGetByButton('accept booking')" class="backgroundcolor-2 hover">Duyệt booking</button>
                     <button onclick="doGetByButton('customer account')" class="backgroundcolor-2 hover">Khách hàng</button>
                     <button onclick="doGetByButton('employee account')" class="backgroundcolor-2 hover">Nhân viên</button>`

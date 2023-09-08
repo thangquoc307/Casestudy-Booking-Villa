@@ -11,6 +11,7 @@ import java.util.Map;
 public class MainPageRepository implements IMainPageRepository{
 
     private static final String GET_DETAIL_IMG = "call get_detail_img();";
+    private static final String INSERT_DETAIL_IMG = "insert into `image_detail_links`(`villa_id`, `image_detail`) values (?,?);";
     private static final String DELETE_PIC = "update `villa_booking`.`image_detail_links` set `is_delete` = 1 where (`image_id` = ?);";
     private static final String GET_ALL_VILLA = "call get_all_villa();";
     private static final String LOGIN = "call check_account(?,?);";
@@ -18,7 +19,7 @@ public class MainPageRepository implements IMainPageRepository{
     private static final String EDIT = "update `villa_booking`.`villas` set `area` = ?, `level` = ?, " +
                                         "`width` = ?, `deep` = ?, `garage` = ?, `gym_room` = ?, `relax_room` = ?, " +
                                         "`toilet` = ?, `living_room` = ?, `kitchen_room` = ?, `bedroom` = ?, `price` = ?, " +
-                                        "`capacity` = ?  where (`villa_id` = ?);";
+                                        "`capacity` = ?, `image_map` = ?  where (`villa_id` = ?);";
     @Override
     public List<Villa> loadingDataBaseVilla() {
         System.out.println("repository loading all");
@@ -98,7 +99,9 @@ public class MainPageRepository implements IMainPageRepository{
     }
 
     @Override
-    public void editVilla(int villaId, double area, double width, double deep, int price, int level, int garage, int gym, int relax, int toilet, int living, int kitchen, int bedroom, int capacity) {
+    public void editVilla(int villaId, double area, double width, double deep, int price, int level,
+                          int garage, int gym, int relax, int toilet, int living, int kitchen, int bedroom,
+                          int capacity, String map) {
         Connection connection = BaseRepository.getConnection();
         try {
             PreparedStatement statement = connection.prepareStatement(EDIT);
@@ -115,7 +118,10 @@ public class MainPageRepository implements IMainPageRepository{
             statement.setInt(11, bedroom);
             statement.setInt(12, price);
             statement.setInt(13, capacity);
-            statement.setInt(14, villaId);
+            statement.setString(14, map);
+            statement.setInt(15, villaId);
+
+
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -171,6 +177,21 @@ public class MainPageRepository implements IMainPageRepository{
                 System.out.println(Integer.parseInt(str));
                 PreparedStatement statement = connection.prepareStatement(DELETE_PIC);
                 statement.setInt(1, Integer.parseInt(str));
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    @Override
+    public void addDetailPicture(int villaId, String[] list) {
+        Connection connection = BaseRepository.getConnection();
+        for (String str : list){
+            try {
+                PreparedStatement statement = connection.prepareStatement(INSERT_DETAIL_IMG);
+                statement.setInt(1, villaId);
+                statement.setString(2, str);
                 statement.executeUpdate();
             } catch (SQLException e) {
                 throw new RuntimeException(e);

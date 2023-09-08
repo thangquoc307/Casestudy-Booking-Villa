@@ -11,7 +11,6 @@
     <meta charset="UTF-8">
     <title>Villa Manage</title>
     <link rel="stylesheet" href="css_villa/villa_page_css.css">
-
 </head>
 <body class="backgroundcolor-2">
 <div id="header" class="boxshadow-outset">
@@ -24,20 +23,27 @@
 </div>
 <div id="villa-list"></div>
 
+<input id="input-detail-picture" style="display: none" class="inps" onchange="handleUpload(0)" type="file" multiple>
+<input id="inputfile" type="file" style="display: none" class="inp" onchange="handleUpload(1)">
+
 <form id="edit-board" class="backgroundcolor-2 boxshadow-outset" action="/main-page-controller?action=edit-villa" method="post">
     <div id="picture" class="boxshadow-inset"></div>
     <div id="map-picture" class="boxshadow-inset">
-        <div id="map-detail-picture"></div>
+        <div id="map-detail-picture">
+            <img src="css_villa/icon/changeimg.png" onclick="changeMap()">
+        </div>
         <div id="map-change">
-
+            <div class="imageUpload"></div>
         </div>
     </div>
     <input id="villaId" type="hidden" name="villa-id">
     <input id="deleteimg" type="hidden" name="img-delete">
+    <input id="inputMap" type="hidden" name="img-map">
+    <input id="inputDetailPic" type="hidden" name="img-detail">
 
-    <div id="area"><p>Diện tích (m<sup>2</sup>)</p><input required id="input-area" name="area" type="number"></div>
-    <div id="width"><p>Chiều dài (m)</p><input required id="input-width" name="width" type=""></div>
-    <div id="deep"><p>Chiều sâu (m)</p><input required id="input-deep" name="deep" type="number"></div>
+    <div id="area"><p>Diện tích (m<sup>2</sup>)</p><input required id="input-area" name="area" type="number" step="any"></div>
+    <div id="width"><p>Chiều dài (m)</p><input required id="input-width" name="width" type="number" step="any"></div>
+    <div id="deep"><p>Chiều sâu (m)</p><input required id="input-deep" name="deep" type="number" step="any"></div>
     <div id="price"><p>Giá thuê (VND)</p><input required id="input-price" name="price" type="number"></div>
 
     <div id="level"><p>Số tầng</p><input required id="input-level" name="level" type="number"></div>
@@ -51,7 +57,8 @@
     <div id="capacity"><p>Sức chứa</p><input required id="input-capacity" name="capacity" type="number"></div>
 
     <button id="button-close" class="hover backgroundcolor-4" type="reset" onclick="closeEditBoard()">Hủy</button>
-    <button id="button-finish" class="hover backgroundcolor-4" type="submit">Hoàn thành</button>
+    <button id="button-finish" onclick="alertEditVilla()" class="hover backgroundcolor-4" type="button">Hoàn thành</button>
+    <button id="actionEdit" type="submit" style="display: none"></button>
 </form>
 
 <form id="delete-board" action="/main-page-controller?action=delete-villa" method="post"
@@ -74,7 +81,14 @@
     <p>Phải có ít nhất 1 hình minh họa cho Villa</p>
     <button onclick="closeAlertChooseAllPicture()">Đóng</button>
 </div>
+<div id="alert-edit-villa" class="backgroundcolor-4">
+    <p id="alert-edit-p1">Xác nhận thay đổi thông tin</p>
+    <p id="alert-edit-p2">** Hành động này không thể hoàn tác **</p>
+    <button id="alert-edit-b1" onclick="closeAlertEditVilla()">Hủy</button>
+    <button id="alert-edit-b2" onclick="confirmEditVilla()">Xác nhận</button>
+</div>
 </body>
+<script type="module" src="css_villa/firebase.js"></script>
 <script src="css_index/villaclass.js"></script>
 <script src="css_villa/villadata.js"></script>
 <script src="css_villa/boardsetup.js"></script>
@@ -84,5 +98,6 @@
     showVillaList();
     document.getElementById("userName").innerHTML = "${user_name}";
 </script>
+
 
 </html>

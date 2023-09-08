@@ -53,13 +53,20 @@ public class MainPageService implements IMainPageService{
         int kitchen = Integer.parseInt(request.getParameter("kitchen"));
         int bedroom = Integer.parseInt(request.getParameter("bedroom"));
         int capacity = Integer.parseInt(request.getParameter("capacity"));
-
-        String[] deletePicture = request.getParameter("img-delete").split(",");
-        if (deletePicture.length != 0){
+        String map = request.getParameter("img-map");
+        String detailImg = request.getParameter("img-detail");
+        System.out.println(detailImg);
+        if (detailImg.length() != 0){
+            String[] list = detailImg.split(" ");
+            mainPageRepository.addDetailPicture(villaId, list);
+        }
+        String deletepic = request.getParameter("img-delete");
+        if (deletepic.length() != 0){
+            String[] deletePicture = deletepic.split(",");
             mainPageRepository.deletePicture(deletePicture);
         }
         mainPageRepository.editVilla(villaId, area, width, deep, price, level, garage,
-                gym, relax, toilet, living, kitchen, bedroom, capacity);
+                gym, relax, toilet, living, kitchen, bedroom, capacity, map);
     }
 
     @Override
