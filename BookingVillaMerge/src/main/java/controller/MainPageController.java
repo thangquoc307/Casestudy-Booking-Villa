@@ -83,6 +83,14 @@ public class MainPageController extends HttpServlet {
                 request.setAttribute("loginfail", 0);
                 request.getRequestDispatcher("/index.jsp").forward(request,response);
                 break;
+            case "createVilla":
+                if (getRole() == 3){
+                    System.out.println(user);
+
+                    request.setAttribute("user_name", getUser());
+                    request.getRequestDispatcher("createVilla.jsp").forward(request,response);
+                }
+                break;
         }
     }
 

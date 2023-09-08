@@ -1,11 +1,14 @@
 package repository.booking;
 
+import model.Villa;
 import model.booking.Booking;
 
 import java.util.List;
 
 public interface IBookingRepository {
     Booking findByBookingId(int bookingId, int findByAccountCode);
+    List<String> getInformAccount();
+    Villa getInformVillaById(int findByVillaId);
 
     List<Booking> showListPending(int findByAccountCode);
 

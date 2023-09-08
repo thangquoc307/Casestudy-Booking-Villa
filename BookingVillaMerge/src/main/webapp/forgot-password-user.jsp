@@ -24,20 +24,14 @@
                         <div class="card-body p-5">
                             <div class="form-outline mb-4">
                                 <h2>Lấy lại mật khẩu</h2>
+                                <p>Xin vui lòng mở hộp thư gmail và nhập 6 số ngẫu nhiên vào ô sau</p>
                             </div>
                             <form action="/forgot-password" method="post">
-                                <p class="text-danger" role="alert">${phoneNumberError}</p>
-                                <span id="phoneNumberFormatError" class="text-danger" role="alert"></span>
-                                <div class="form-outline mb-4">
-                                    <label class="form-label" for="phoneNumber">Số điện thoại</label>
-                                    <input onblur="validatePhoneNumber()" onfocus="clearErrorPhoneNumber()" type="tel" id="phoneNumber" name="phoneNumber" class="form-control form-control-lg" required/>
-                                </div>
 
-                                <p class="text-danger" role="alert">${identityNumberError}</p>
-                                <span id="identityNumberFormatError" class="text-danger" role="alert"></span>
+                                <p class="text-danger" role="alert">${ranDomNumberError}</p>
                                 <div class="form-outline mb-4">
-                                    <label class="form-label" for="phoneNumber">Số CMND/CCCD</label>
-                                    <input onblur="validateIdentityNumber()" onfocus="clearErrorIdentityNumber()" type="tel" id="identityNumber" name="identityNumber" class="form-control form-control-lg" required/>
+                                    <label class="form-label" for="randomNumber">Mã xác nhận gồm 6 chữ số</label>
+                                    <input  type="text" id="randomNumber" name="randomNumber" class="form-control form-control-lg" required/>
                                 </div>
 
                                 <span id="passwordFormatError" class="text-danger" role="alert"> </span>

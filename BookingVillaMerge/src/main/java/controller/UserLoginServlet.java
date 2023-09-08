@@ -36,8 +36,9 @@ public class UserLoginServlet extends HttpServlet {
                 showInformationUser(request, response);
                 break;
             case "back":
-                String userName = (String)request.getAttribute("user_name");
-                request.setAttribute("user_name",userName);
+                HttpSession session = request.getSession();
+                Customer customer = (Customer) session.getAttribute("customer");
+                request.setAttribute("user_name",customer.getCustomerName());
                 MainPageService mainPageService= new MainPageService();
                 String dataVillaReload = mainPageService.loadingDataBaseVilla(request,response);
                 request.setAttribute("data", dataVillaReload);

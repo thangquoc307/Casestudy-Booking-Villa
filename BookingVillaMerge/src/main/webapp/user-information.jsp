@@ -21,7 +21,7 @@
         <div id="header" class="boxshadow-outset">
             <img src="https://drive.google.com/uc?id=1cH2mCtzpEW1JtCt0qkxoD6PtEGbuT35c" width="60%">
             <div class="link-items">
-                <a class="btn btn-info content " href="/main-page-controller?action=backToMain">Trang chủ</a>
+                <a class="btn btn-info content " href="/login?action=back">Trang chủ</a>
                 <a href="/booking?action=showListPending" class="backgroundcolor-2 hover">Booking</a>
             </div>
         </div>

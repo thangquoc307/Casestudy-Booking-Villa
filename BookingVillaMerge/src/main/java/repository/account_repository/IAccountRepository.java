@@ -10,7 +10,7 @@ public interface IAccountRepository {
     Account getAccountByUserName(String userName);
     void save(Account account);
     void updatePassword (String password,String userName);
-    void getPassword (String password, String identityNumber, String phoneNumber);
+    void getPassword (String password, String email);
     void updateUserName (String userName,int accountCode);
     void deleteAccountAndCustomer (int accountCode);
     Account getAccountByAccountCode(int accountCode);

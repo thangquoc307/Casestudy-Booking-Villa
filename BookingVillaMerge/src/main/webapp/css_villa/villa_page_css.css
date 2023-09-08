@@ -365,6 +365,7 @@
     text-align: center;
     flex-direction: column;
     justify-content: center;
+    opacity: 0.95;
 }
 #alert-edit-p1{
     padding-top: 5%;

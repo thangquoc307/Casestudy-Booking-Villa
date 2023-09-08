@@ -1,5 +1,6 @@
 package controller;
 
+import model.Villa;
 import model.booking.Booking;
 import repository.MainPageRepository;
 import service.booking.BookingService;
@@ -108,12 +109,16 @@ public class BookingServlet extends HttpServlet {
     }
 
     private void showFormCreateBooking(HttpServletRequest request, HttpServletResponse response){
-//        int accountId = MainPageController.getAccount();
-//        int villaId = Integer.parseInt(request.getParameter("index"));
-//        Account account = bookingService.findByIdAccount();
-//        Villa villa = bookingService.findByIdVilla();
-//        request.setAttribute("account",account);
-//        request.setAttribute("villa",villa);
+        List<String> informAccountList = bookingService.getInformAccount();
+        String name = bookingService.nameAccount(informAccountList);
+        String phoneNumber = bookingService.phoneNumberAccount(informAccountList);
+        int findByAccountCode = MainPageController.getAccount();
+        int villaId = Integer.parseInt(request.getParameter("index"));
+        Villa villa = bookingService.getInformVillaById(villaId);
+        request.setAttribute("customerCode",findByAccountCode);
+        request.setAttribute("name",name);
+        request.setAttribute("phoneNumber",phoneNumber);
+        request.setAttribute("villa",villa);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/booking.jsp");
         try {
             requestDispatcher.forward(request,response);
@@ -123,15 +128,16 @@ public class BookingServlet extends HttpServlet {
     }
 
     private void createBooking(HttpServletRequest request, HttpServletResponse response){
+        System.out.println("tới servlet");
         String checkIn = request.getParameter("checkIn");
         String checkOut = request.getParameter("checkOut");
-        int price = Integer.parseInt(request.getParameter("price"));
+        int priceBooking = Integer.parseInt(request.getParameter("priceBooking"));
         int deposit = Integer.parseInt(request.getParameter("deposit"));
         String checkInName = request.getParameter("checkInName");
         String checkInPhoneNumber = request.getParameter("checkInPhoneNumber");
         int villaId = Integer.parseInt(request.getParameter("villaId"));
         int customerCode = Integer.parseInt(request.getParameter("customerCode"));
-        bookingService.save(new Booking(checkIn,checkOut,price,deposit,checkInName,checkInPhoneNumber,
+        bookingService.save(new Booking(checkIn,checkOut,priceBooking,deposit,checkInName,checkInPhoneNumber,
                 villaId,customerCode));
         try {
             response.sendRedirect("/booking");

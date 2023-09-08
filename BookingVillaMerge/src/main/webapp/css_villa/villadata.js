@@ -74,7 +74,9 @@ function closeEditBoard(){
     let board = document.getElementById("edit-board");
     board.style.display = "none";
 }
-function addVilla(){}
+function addVilla(){
+    window.location.href = "/main-page-controller?action=createVilla";
+}
 
 function deleteVilla(villaId){
     let villaDelete = document.getElementById("delete-board");

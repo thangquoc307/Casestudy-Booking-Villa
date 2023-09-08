@@ -34,7 +34,7 @@
                                 </div>
                                 <div class="form-outline mb-4">
                                     <a style="float: left" href="signup-user.jsp" class="fw-bold text-body"><u>Đăng ký</u></a>
-                                    <a style="float: right" href="/forgot-password-user.jsp" class="fw-bold text-body"><u>Quên mật khẩu?</u></a>
+                                    <a style="float:  right" data-bs-toggle="modal" data-bs-target="#exampleModal"  class="fw-bold text-body"><u>Quên mật khẩu?</u></a>
                                 </div>
                                 <div>
                                     <button id="submitButton"  type="submit" class="backgroundcolor-2 hover btn-login">Đăng nhập</button>
@@ -47,6 +47,25 @@
         </div>
     </div>
 </section>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Nhập email đã đăng ký tại trang web</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/forgot-password">
+                <input  name="action" value="sendEmail" hidden="">
+            <div class="modal-body">
+                <input type="email" name="email", id="email">
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Gửi đi</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
         crossorigin="anonymous"></script>

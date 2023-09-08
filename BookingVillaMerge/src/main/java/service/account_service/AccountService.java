@@ -32,8 +32,8 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public void getPassword(String password, String identityNumber, String phoneNumber) {
-        iAccountRepository.getPassword(password,identityNumber,phoneNumber);
+    public void getPassword(String password, String email) {
+        iAccountRepository.getPassword(password,email);
     }
 
     @Override

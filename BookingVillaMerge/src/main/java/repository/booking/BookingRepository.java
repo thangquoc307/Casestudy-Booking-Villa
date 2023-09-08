@@ -1,5 +1,6 @@
 package repository.booking;
 
+import model.Villa;
 import model.booking.Booking;
 import repository.BaseRepository;
 import java.sql.*;
@@ -15,6 +16,8 @@ public class BookingRepository implements IBookingRepository {
     private static String ADD_BOOKING = "call add_booking(?,?,?,?,?,?,?,?)";
     private static String UPDATE_BOOKING = "call update_booking(?,?,?)";
     private static String DELETE_BOOKING = "call delete_booking(?)";
+    private static String GET_INFORM_ACCOUNT = "call get_inform_account()";
+    private static String GET_INFORM_VILLA = "call get_inform_villa_by_id(?)";
 
     @Override
     public Booking findByBookingId(int bookingId, int findByAccountCode) {
@@ -27,10 +30,61 @@ public class BookingRepository implements IBookingRepository {
     }
 
     @Override
-    public List<Booking> showListPending(int findByAccountCode) {
+    public List<String> getInformAccount() {
+        List<String> informAccountList = new ArrayList<>();
+        Connection connection = BaseRepository.getConnection();
+        try {
+            CallableStatement callableStatement = connection.prepareCall(GET_INFORM_ACCOUNT);
+            ResultSet resultSet = callableStatement.executeQuery();
+            while (resultSet.next()){
+                String accountCode = resultSet.getString("account_code");
+                String name = resultSet.getString("name");
+                String phoneNumber = resultSet.getString("phone_number");
+                String inform = accountCode + "," + name + "," + phoneNumber;
+                informAccountList.add(inform);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return informAccountList;
+    }
 
-        System.out.println(findByAccountCode);
-        System.out.println("as");
+    @Override
+    public Villa getInformVillaById(int findByVillaId) {
+        Connection connection = BaseRepository.getConnection();
+        Villa villa = null;
+        try {
+            CallableStatement callableStatement = connection.prepareCall(GET_INFORM_VILLA);
+            callableStatement.setInt(1,findByVillaId);
+            ResultSet resultSet = callableStatement.executeQuery();
+            while (resultSet.next()){
+                String map = resultSet.getString("image_map");
+                int price = resultSet.getInt("price");
+                int level = resultSet.getInt("level");
+                double area = resultSet.getDouble("area");
+                double width = resultSet.getDouble("width");
+                double deep = resultSet.getDouble("deep");
+                int bedroom = resultSet.getInt("bedroom");
+                int kitchen = resultSet.getInt("kitchen_room");
+                int living = resultSet.getInt("living_room");
+                int toilet = resultSet.getInt("toilet");
+                int relax = resultSet.getInt("relax_room");
+                int gym = resultSet.getInt("gym_room");
+                int garage = resultSet.getInt("garage");
+                int capacity = resultSet.getInt("capacity");
+                villa = new Villa (findByVillaId,map,price,level,area,width,deep,bedroom,kitchen,living,toilet,relax,gym,
+                        garage,capacity);
+            }
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return villa;
+    }
+
+
+    @Override
+    public List<Booking> showListPending(int findByAccountCode) {
         List<Booking> bookingListPending = new ArrayList<>();
         Connection connection = BaseRepository.getConnection();
         try {
@@ -57,7 +111,6 @@ public class BookingRepository implements IBookingRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(bookingListPending);
         return bookingListPending;
     }
 
@@ -124,12 +177,13 @@ public class BookingRepository implements IBookingRepository {
     @Override
     public void save(Booking booking) {
         Connection connection = BaseRepository.getConnection();
+        System.out.println("toi repo");
         try {
             CallableStatement callableStatement = connection.prepareCall(ADD_BOOKING);
             callableStatement.setDate(1, Date.valueOf(LocalDate.parse(booking.getCheckIn(),
-                    DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
             callableStatement.setDate(2, Date.valueOf(LocalDate.parse(booking.getCheckOut(),
-                    DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
             callableStatement.setInt(3, booking.getPrice());
             callableStatement.setInt(4, booking.getDeposit());
             callableStatement.setString(5, booking.getCheckInPersonName());

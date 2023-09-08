@@ -25,17 +25,15 @@
 <div style="background: #EAE7D6; height: 40px">
     <h5 style="line-height: 40px">Đặt phòng villa</h5>
 </div>
-
 <div class="col-12 bg-image" style=" width: 100%; height: 293px; margin: auto;
                     background-size: cover"></div>
-
 <div class="p-5 bg-light" style="margin: -100px 10%; border: 1px solid #EAE7D6; border-radius: 2%;background: hsla(0, 0%, 100%, 0.8);
         backdrop-filter: blur(30px);">
-    <form class="row g-3 justify-content-center" action="/booking?action=createBooking">
+    <form class="row g-3 justify-content-center" action="/booking?action=createBooking" method="post">
         <div class="row col-12">
             <div class="col-12">
                 <label class="form-label fw-bold">Thông tin người đặt</label>
-                <input type="hidden" name="accountCode">
+                <input type="hidden" name="customerCode" value="${customerCode}">
             </div>
             <div class="col-md-6">
                 <label for="name" class="form-label">Họ và tên</label>
@@ -46,28 +44,26 @@
                 <input type="text" name="phoneNumber" class="form-control" id="phoneNumber" disabled
                        value="${phoneNumber}">
             </div>
-            <div class="col-12">
-                <div class="form-check ml-1">
-                    <input type="checkbox" class="form-check-input" id="signUpForSomeoneElse">
-                    <label for="signUpForSomeoneElse" class="form-check-label">Đăng kí hộ</label>
-                </div>
-            </div>
+<%--            <div class="col-12">--%>
+<%--                <div class="form-check ml-1">--%>
+<%--                    <input type="checkbox" class="form-check-input" id="signUpForSomeoneElse">--%>
+<%--                    <label for="signUpForSomeoneElse" class="form-check-label">Đăng kí hộ</label>--%>
+<%--                </div>--%>
+<%--            </div>--%>
         </div>
-
-        <div class="row col-12 mt-2" hidden>
+        <div class="row col-12 mt-2">
             <div class="col-12">
                 <label class="form-label fw-bold">Thông tin người nhận</label>
             </div>
             <div class="col-md-6">
                 <label for="checkInName" class="form-label">Họ và tên</label>
-                <input type="text" name="checkInName" class="form-control" id="checkInName">
+                <input type="text" name="checkInName" class="form-control" id="checkInName" value="${name}">
             </div>
             <div class="col-md-6">
                 <label for="checkInPhoneNumber" class="form-label">Số điện thoại</label>
-                <input type="text" name="checkInPhoneNumber" class="form-control" id="checkInPhoneNumber">
+                <input type="text" name="checkInPhoneNumber" class="form-control" id="checkInPhoneNumber" value="${phoneNumber}">
             </div>
         </div>
-
         <div class="row col-12 mt-3">
             <div class="col-12">
                 <label class="form-label fw-bold">Thời gian</label>
@@ -75,7 +71,7 @@
             <div class="col-md-6">
                 <label for="checkIn" class="form-label">Ngày nhận</label>
                 <input type="date" name="checkIn" class="form-control" id="checkIn"
-                       placeholder="dd/mm/yyyy" onchange="timeUsed()">
+                       placeholder="dd/mm/yyyy" onchange="timeUsed('${villa.price}')">
             </div>
             <div class="col-md-6">
                 <label for="checkOut" class="form-label">Ngày trả</label>
@@ -83,12 +79,11 @@
                        placeholder="dd/mm/yyyy" onchange="timeUsed('${villa.price}')">
             </div>
         </div>
-
         <div class="row col-12 mt-3">
             <div class="col-12">
                 <label class="form-label fw-bold">Thông tin villa ${villa.villaId}</label>
+                <input type="hidden" name="villaId" value="${villa.villaId}">
             </div>
-
             <div class="col-md-6">
                 <div class="mb-3" style="height: 308px; background-image: url('${villa.map}');
                         background-size: contain;background-repeat: no-repeat;background-position: center"></div>
@@ -99,7 +94,6 @@
                                value="${villa.relax}">
                     </div>
                 </div>
-
                 <div class="row mb-3">
                     <label for="gymRoom" class="col-sm-6 col-form-label">Số phòng gym</label>
                     <div class="col-sm-6">
@@ -107,7 +101,6 @@
                                value="${villa.gym}">
                     </div>
                 </div>
-
                 <div class="row mb-3">
                     <label for="garage" class="col-sm-6 col-form-label">Số ga-ra</label>
                     <div class="col-sm-6">
@@ -116,7 +109,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="col-md-6">
                 <div class="row mb-3">
                     <label for="deep" class="col-sm-6 col-form-label">Chiều dài</label>
@@ -124,28 +116,24 @@
                         <input type="text" name="deep" class="form-control" id="deep" disabled value="${villa.deep}">
                     </div>
                 </div>
-
                 <div class="row mb-3">
                     <label for="width" class="col-sm-6 col-form-label">Chiều rộng</label>
                     <div class="col-sm-6">
                         <input type="text" name="width" class="form-control" id="width" disabled value="${villa.width}">
                     </div>
                 </div>
-
                 <div class="row mb-3">
                     <label for="level" class="col-sm-6 col-form-label">Số tầng</label>
                     <div class="col-sm-6">
                         <input type="text" name="level" class="form-control" id="level" disabled value="${villa.level}">
                     </div>
                 </div>
-
                 <div class="row mb-3">
                     <label for="area" class="col-sm-6 col-form-label">Diện tích sử dụng</label>
                     <div class="col-sm-6">
                         <input type="text" name="area" class="form-control" id="area" disabled value="${villa.area}">
                     </div>
                 </div>
-
                 <div class="row mb-3">
                     <label for="livingRoom" class="col-sm-6 col-form-label">Số phòng khách</label>
                     <div class="col-sm-6">
@@ -153,7 +141,6 @@
                                value="${villa.living}">
                     </div>
                 </div>
-
                 <div class="row mb-3">
                     <label for="kitchenRoom" class="col-sm-6 col-form-label">Số phòng bếp</label>
                     <div class="col-sm-6">
@@ -161,7 +148,6 @@
                                value="${villa.kitchen}">
                     </div>
                 </div>
-
                 <div class="row mb-3">
                     <label for="bedRoom" class="col-sm-6 col-form-label">Số phòng ngủ</label>
                     <div class="col-sm-6">
@@ -169,7 +155,6 @@
                                value="${villa.bedroom}">
                     </div>
                 </div>
-
                 <div class="row mb-3">
                     <label for="toilet" class="col-sm-6 col-form-label">Số phòng WC</label>
                     <div class="col-sm-6">
@@ -177,7 +162,6 @@
                                value="${villa.toilet}">
                     </div>
                 </div>
-
                 <div class="row mb-3">
                     <label for="capacity" class="col-sm-6 col-form-label">Số người tối đa</label>
                     <div class="col-sm-6">
@@ -187,30 +171,26 @@
                 </div>
             </div>
         </div>
-
         <div class="row col-12">
             <div class="col-12">
                 <label class="form-label fw-bold">Đặt cọc</label>
             </div>
-
             <div class="col-md-6">
                 <div class="row mb-3">
-                    <label for="price" class="col-sm-4 col-form-label">Tổng tiền thanh toán</label>
+                    <label for="priceBooking" class="col-sm-4 col-form-label">Tổng tiền thanh toán</label>
                     <div class="col-sm-8">
-                        <input type="text" name="price" class="form-control" id="price" disabled value="${villa.price}">
+                        <input type="text" name="priceBooking" class="form-control" id="priceBooking" readonly>
                     </div>
                 </div>
             </div>
-
             <div class="col-md-6">
                 <div class="row mb-3">
-                    <label for="deposit" class="col-sm-4 col-form-label">Tiền phải đặt cọc</label>
+                    <label for="deposit" class="col-sm-4 col-form-label">Tiền phải đặt cọc (10%)</label>
                     <div class="col-sm-8">
-                        <input type="text" name="deposit" class="form-control" id="deposit" disabled>
+                        <input type="text" name="deposit" class="form-control" id="deposit" readonly>
                     </div>
                 </div>
             </div>
-
             <div class="col-md-8">
                 <label class="form-label">
                     Bạn cần đặt cọc để hoàn thành đặt villa. Số tiền chuyển khoản phải lớn hơn hoặc bằng số tiền đặt
@@ -226,16 +206,15 @@
                     <br>
                     - Số tài khoản: 0000 9356 23056
                 </label>
-                <div class="form-check ml-1">
-                    <input type="checkbox" class="form-check-input" id="">
-                    <label for="signUpForSomeoneElse" class="form-check-label">Đã chuyển khoản đặt cọc</label>
-                </div>
+<%--                <div class="form-check ml-1">--%>
+<%--                    <input type="checkbox" class="form-check-input" id="">--%>
+<%--                    <label for="signUpForSomeoneElse" class="form-check-label">Đã chuyển khoản đặt cọc</label>--%>
+<%--                </div>--%>
             </div>
             <div class="col-md-4 text-center m-auto">
                 <img src="img_booking/licensed-image.png" style="height: 200px;width: 200px;text-align: center"/>
             </div>
         </div>
-
         <div class="col-12">
             <button type="submit" class="btn btn-primary">Đặt villa</button>
         </div>
@@ -246,11 +225,12 @@
         crossorigin="anonymous"></script>
 <script>
     function timeUsed(price) {
+        document.getElementById("priceBooking").value = 0;
         let checkIn = new Date(document.getElementById("checkIn").value);
         let checkOut = new Date(document.getElementById("checkOut").value);
-        let timeUsed = 1 + (checkOut.getTime() - checkIn.getTime()) / (24 * 60 * 1000);
-        document.getElementById("price").value = price * timeUsed;
-        document.getElementById("deposit").value = document.getElementById("price").value / 10;
+        let timeUsed = 1 + (checkOut.getTime() - checkIn.getTime()) / (24 * 3600 * 1000);
+        document.getElementById("priceBooking").value = price * timeUsed;
+        document.getElementById("deposit").value = document.getElementById("priceBooking").value / 10;
     }
 </script>
 </body>

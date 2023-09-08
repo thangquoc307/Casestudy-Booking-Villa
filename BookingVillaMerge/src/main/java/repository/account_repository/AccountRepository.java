@@ -16,14 +16,20 @@ public class AccountRepository implements IAccountRepository{
     private static final String SELECT_ACCOUNT = "select * from accounts\n" +
             "join customers on accounts.account_code = customers.account_code\n" +
             "where customers.phone_number = ? and accounts.password_account = ? and accounts.is_delete = 0";
-    private static final String SELECT_ACCOUNT_BY_USER_NAME = "SELECT * FROM villa_booking1.accounts\n" +
+    private static final String SELECT_ACCOUNT_BY_USER_NAME = "SELECT * FROM accounts\n" +
             "WHERE user_name = ?" ;
 
     private static final String INSERT_ACCOUNT = "INSERT INTO accounts(user_name,password_account)\n" +
             "VALUES (?,?)";
     private static final String  UPDATE_PASSWORD = "UPDATE accounts\n" + "SET password_account = ?\n" + "WHERE user_name = ?;\n" ;
     private static final String  UPDATE_USER_NAME = "UPDATE accounts\n" + "SET user_name = ?\n" + "WHERE account_code = ?;\n" ;
-    private static final String GET_PASSWORD = "call  resetPasswordByIdentityNumberAndPhoneNumber(?,?,?);\n";
+    private static final String GET_PASSWORD = "UPDATE accounts\n" +
+            "SET password_account = ?\n" +
+            "WHERE account_code IN (\n" +
+            "    SELECT account_code\n" +
+            "    FROM customers\n" +
+            "    WHERE email = ?\n" +
+            ");";
     private static final String DELETE_ACCOUNT_AND_CUSTOMER = "call deleteAccountAndCustomer(?)";
     private static final String SELECT_ACCOUNT_BY_ACCOUNT_CODE = "select * from accounts\n" +
             "where account_code = ?";
@@ -98,13 +104,12 @@ public class AccountRepository implements IAccountRepository{
         }
 
     @Override
-    public void getPassword(String password, String identityNumber, String phoneNumber) {
+    public void getPassword(String password, String email) {
         Connection connection = BaseRepository.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_PASSWORD);
             preparedStatement.setString(1,password);
-            preparedStatement.setString(2,identityNumber);
-            preparedStatement.setString(3,phoneNumber);
+            preparedStatement.setString(2,email);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
