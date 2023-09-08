@@ -1,6 +1,10 @@
 package controller;
 
+import model.Customer;
 import service.MainPageService;
+import service.customer_service.CustomerService;
+import service.customer_service.ICustomerService;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -32,6 +36,7 @@ public class MainPageController extends HttpServlet {
     public static void setRole(int role) {
         MainPageController.role = role;
     }
+    private ICustomerService iCustomerService = new CustomerService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -66,6 +71,10 @@ public class MainPageController extends HttpServlet {
                     request.getRequestDispatcher("editVilla.jsp").forward(request,response);
                 }
                 break;
+            case "showInformationUser":
+                showInformationUser(request,response);
+                response.sendRedirect("user-information.jsp");
+                break;
             case "backToMain":
                 String dataVillaReload = mainPageService.loadingDataBaseVilla(request,response);
                 request.setAttribute("data", dataVillaReload);
@@ -73,6 +82,7 @@ public class MainPageController extends HttpServlet {
                 request.setAttribute("user_name", getUser());
                 request.setAttribute("loginfail", 0);
                 request.getRequestDispatcher("/index.jsp").forward(request,response);
+                break;
         }
     }
 
@@ -96,6 +106,9 @@ public class MainPageController extends HttpServlet {
                     request.setAttribute("loginfail", 1);
                     request.setAttribute("user_name", "");
                 } else {
+                    HttpSession session =request.getSession();
+                    Customer customer = iCustomerService.getCustomerByCustomerCode(getAccount());
+                    session.setAttribute("customer",customer);
                     setAccount(Integer.parseInt(accountInfo.get(2)));
                     setUser(accountInfo.get(1));
                     switch (accountInfo.get(0)){
@@ -139,6 +152,47 @@ public class MainPageController extends HttpServlet {
                 request.getRequestDispatcher("editVilla.jsp").forward(request,response);
                 break;
 
+        }
+    }
+    private void showInformationUser(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        Customer customer = (Customer) session.getAttribute("customer");
+        if (customer != null) {
+            session.setAttribute("accountCode", customer.getAccountCode());
+            session.setAttribute("userName", customer.getCustomerName());
+            session.setAttribute("identityNumber", customer.getIdentityNumber());
+            session.setAttribute("birthday", customer.getDateOfBirth());
+            if (customer.isGender()) {
+                session.setAttribute("gender", "Nữ");
+            } else {
+                session.setAttribute("gender", "Nam");
+            }
+            session.setAttribute("phoneNumber", customer.getPhoneNumber());
+            session.setAttribute("email", customer.getEmail());
+            session.setAttribute("address", customer.getAddress());
+            try {
+                request.getRequestDispatcher("user-information.jsp").forward(request, response);
+            } catch (ServletException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            session.setAttribute("accountCode", "");
+            session.setAttribute("userName", "");
+            session.setAttribute("identityNumber", "");
+            session.setAttribute("birthday", "");
+            session.setAttribute("gender", "");
+            session.setAttribute("phoneNumber", "");
+            session.setAttribute("email", "");
+            session.setAttribute("address", "");
+            try {
+                request.getRequestDispatcher("user-information.jsp").forward(request, response);
+            } catch (ServletException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }

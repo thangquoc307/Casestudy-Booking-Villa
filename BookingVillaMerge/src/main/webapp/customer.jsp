@@ -95,7 +95,9 @@
                 </div>
                 <div class="modal-body">
                     <input type="hidden" id="id_delete" name="id_delete">
-                    Bạn có muốn xoá tài khoản khách hàng <span id="name_delete" class="text-danger"></span>
+                    Bạn có muốn xoá khách hàng <span style="text-transform: uppercase" id="name_delete" class="text-danger"></span> không ?
+                    <br><br>
+                    <span style="color: red">(Lưu ý: Hành động này không thể hoàn tác !)</span>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>

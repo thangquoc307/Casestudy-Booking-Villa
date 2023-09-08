@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>Booking villa</title>
@@ -33,14 +35,16 @@
         <div class="row col-12">
             <div class="col-12">
                 <label class="form-label fw-bold">Thông tin người đặt</label>
+                <input type="hidden" name="accountCode">
             </div>
             <div class="col-md-6">
-                <label for="name" class="form-label" >Họ và tên</label>
-                <input type="text" name="name" class="form-control" id="name" disabled value="${account.userName}">
+                <label for="name" class="form-label">Họ và tên</label>
+                <input type="text" name="name" class="form-control" id="name" disabled value="${name}">
             </div>
             <div class="col-md-6 mb-2">
                 <label for="phoneNumber" class="form-label">Số điện thoại</label>
-                <input type="text" name="phoneNumber" class="form-control" id="phoneNumber" disabled value="${account.userName}">
+                <input type="text" name="phoneNumber" class="form-control" id="phoneNumber" disabled
+                       value="${phoneNumber}">
             </div>
             <div class="col-12">
                 <div class="form-check ml-1">
@@ -50,12 +54,12 @@
             </div>
         </div>
 
-        <div class="row col-12 mt-2">
+        <div class="row col-12 mt-2" hidden>
             <div class="col-12">
                 <label class="form-label fw-bold">Thông tin người nhận</label>
             </div>
             <div class="col-md-6">
-                <label for="checkInName" class="form-label" >Họ và tên</label>
+                <label for="checkInName" class="form-label">Họ và tên</label>
                 <input type="text" name="checkInName" class="form-control" id="checkInName">
             </div>
             <div class="col-md-6">
@@ -69,107 +73,116 @@
                 <label class="form-label fw-bold">Thời gian</label>
             </div>
             <div class="col-md-6">
-                <label for="checkIn" class="form-label" >Ngày nhận</label>
-                <input type="date" name="checkIn" class="form-control" id="checkIn" placeholder="dd/mm/yyyy">
+                <label for="checkIn" class="form-label">Ngày nhận</label>
+                <input type="date" name="checkIn" class="form-control" id="checkIn"
+                       placeholder="dd/mm/yyyy" onchange="timeUsed()">
             </div>
             <div class="col-md-6">
                 <label for="checkOut" class="form-label">Ngày trả</label>
-                <input type="date" name="checkOut" class="form-control" id="checkOut" placeholder="dd/mm/yyyy">
+                <input type="date" name="checkOut" class="form-control" id="checkOut"
+                       placeholder="dd/mm/yyyy" onchange="timeUsed('${villa.price}')">
             </div>
         </div>
 
         <div class="row col-12 mt-3">
             <div class="col-12">
-                <label class="form-label fw-bold">Thông tin villa</label>
+                <label class="form-label fw-bold">Thông tin villa ${villa.villaId}</label>
             </div>
 
             <div class="col-md-6">
-                <div class="col-sm-6 mb-3" style="height: 308px">
-
-                </div>
+                <div class="mb-3" style="height: 308px; background-image: url('${villa.map}');
+                        background-size: contain;background-repeat: no-repeat;background-position: center"></div>
                 <div class="row mb-3">
                     <label for="relaxRoom" class="col-sm-6 col-form-label">Số phòng thư giãn</label>
                     <div class="col-sm-6">
-                        <input type="text" name="relaxRoom" class="form-control" id="relaxRoom" disabled value="${Villa.relaxRoom}">
+                        <input type="text" name="relaxRoom" class="form-control" id="relaxRoom" disabled
+                               value="${villa.relax}">
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <label for="gymRoom" class="col-sm-6 col-form-label">Số phòng gym</label>
                     <div class="col-sm-6">
-                        <input type="text" name="gymRoom" class="form-control" id="gymRoom" disabled value="${Villa.gymRoom}">
+                        <input type="text" name="gymRoom" class="form-control" id="gymRoom" disabled
+                               value="${villa.gym}">
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <label for="garage" class="col-sm-6 col-form-label">Số ga-ra</label>
                     <div class="col-sm-6">
-                        <input type="text" name="garage" class="form-control" id="garage" disabled value="${Villa.garage}">
+                        <input type="text" name="garage" class="form-control" id="garage" disabled
+                               value="${villa.garage}">
                     </div>
                 </div>
             </div>
 
             <div class="col-md-6">
                 <div class="row mb-3">
-                    <label for="deep" class="col-sm-6 col-form-label" >Chiều dài</label>
+                    <label for="deep" class="col-sm-6 col-form-label">Chiều dài</label>
                     <div class="col-sm-6">
-                        <input type="text" name="deep" class="form-control" id="deep" disabled value="${Villa.deep}">
+                        <input type="text" name="deep" class="form-control" id="deep" disabled value="${villa.deep}">
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <label for="width" class="col-sm-6 col-form-label">Chiều rộng</label>
                     <div class="col-sm-6">
-                        <input type="text" name="width" class="form-control" id="width" disabled value="${Villa.width}">
+                        <input type="text" name="width" class="form-control" id="width" disabled value="${villa.width}">
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <label for="level" class="col-sm-6 col-form-label">Số tầng</label>
                     <div class="col-sm-6">
-                        <input type="text" name="level" class="form-control" id="level" disabled value="${Villa.level}">
+                        <input type="text" name="level" class="form-control" id="level" disabled value="${villa.level}">
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <label for="area" class="col-sm-6 col-form-label">Diện tích sử dụng</label>
                     <div class="col-sm-6">
-                        <input type="text" name="area" class="form-control" id="area" disabled value="${Villa.area}">
+                        <input type="text" name="area" class="form-control" id="area" disabled value="${villa.area}">
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <label for="livingRoom" class="col-sm-6 col-form-label">Số phòng khách</label>
                     <div class="col-sm-6">
-                        <input type="text" name="livingRoom" class="form-control" id="livingRoom" disabled value="${Villa.livingRoom}">
+                        <input type="text" name="livingRoom" class="form-control" id="livingRoom" disabled
+                               value="${villa.living}">
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <label for="kitchenRoom" class="col-sm-6 col-form-label">Số phòng bếp</label>
                     <div class="col-sm-6">
-                        <input type="text" name="kitchenRoom" class="form-control" id="kitchenRoom" disabled value="${Villa.kitchenRoom}">
+                        <input type="text" name="kitchenRoom" class="form-control" id="kitchenRoom" disabled
+                               value="${villa.kitchen}">
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <label for="bedRoom" class="col-sm-6 col-form-label">Số phòng ngủ</label>
                     <div class="col-sm-6">
-                        <input type="text" name="bedRoom" class="form-control" id="bedRoom" disabled value="${Villa.bedRoom}">
+                        <input type="text" name="bedroom" class="form-control" id="bedroom" disabled
+                               value="${villa.bedroom}">
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <label for="toilet" class="col-sm-6 col-form-label">Số phòng WC</label>
                     <div class="col-sm-6">
-                        <input type="text" name="toilet" class="form-control" id="toilet" disabled value="${Villa.toilet}">
+                        <input type="text" name="toilet" class="form-control" id="toilet" disabled
+                               value="${villa.toilet}">
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <label for="capacity" class="col-sm-6 col-form-label">Số người tối đa</label>
                     <div class="col-sm-6">
-                        <input type="text" name="capacity" class="form-control" id="capacity" disabled value="${Villa.capacity}">
+                        <input type="text" name="capacity" class="form-control" id="capacity" disabled
+                               value="${villa.capacity}">
                     </div>
                 </div>
             </div>
@@ -184,7 +197,7 @@
                 <div class="row mb-3">
                     <label for="price" class="col-sm-4 col-form-label">Tổng tiền thanh toán</label>
                     <div class="col-sm-8">
-                        <input type="text" name="price" class="form-control" id="price" disabled value="${Villa.price}">
+                        <input type="text" name="price" class="form-control" id="price" disabled value="${villa.price}">
                     </div>
                 </div>
             </div>
@@ -200,8 +213,10 @@
 
             <div class="col-md-8">
                 <label class="form-label">
-                    Bạn cần đặt cọc để hoàn thành đặt villa. Số tiền chuyển khoản phải lớn hơn hoặc bằng số tiền đặt cọc.
-                    Sau khi chuyển khoản đặt cọc thành công, vui lòng đánh dấu vào ô "Đã chuyển khoản đặt cọc" sau đó nhấn "Đặt villa".
+                    Bạn cần đặt cọc để hoàn thành đặt villa. Số tiền chuyển khoản phải lớn hơn hoặc bằng số tiền đặt
+                    cọc.
+                    Sau khi chuyển khoản đặt cọc thành công, vui lòng đánh dấu vào ô "Đã chuyển khoản đặt cọc" sau đó
+                    nhấn "Đặt villa".
                     <br>
                     Chúng tôi sẽ tiến hành kiểm duyệt và sẽ thông báo đến bạn trong thời gian sớm nhất. Xin cảm ơn!
                     <br>
@@ -217,7 +232,7 @@
                 </div>
             </div>
             <div class="col-md-4 text-center m-auto">
-                <img src="img_booking/licensed-image.png" style="height: 200px;width: 200px;text-align: center" />
+                <img src="img_booking/licensed-image.png" style="height: 200px;width: 200px;text-align: center"/>
             </div>
         </div>
 
@@ -226,11 +241,17 @@
         </div>
     </form>
 </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-            crossorigin="anonymous"></script>
-    <script>
-        document.getElementById("deposit").value = document.getElementById("price").value/10;
-    </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+<script>
+    function timeUsed(price) {
+        let checkIn = new Date(document.getElementById("checkIn").value);
+        let checkOut = new Date(document.getElementById("checkOut").value);
+        let timeUsed = 1 + (checkOut.getTime() - checkIn.getTime()) / (24 * 60 * 1000);
+        document.getElementById("price").value = price * timeUsed;
+        document.getElementById("deposit").value = document.getElementById("price").value / 10;
+    }
+</script>
 </body>
 </html>

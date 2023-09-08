@@ -29,12 +29,12 @@
                     <input type="text" id="name" name="name"
                            value="${employee.name}"/>
 
-                    <label for="identity_number">Số CMND:</label>
-                    <input type="text" id="identity_number" name="identity_number"
+<%--                    <label for="identity_number">Số CMND:</label>--%>
+                    <input type="hidden" id="identity_number" name="identity_number"
                            value="<c:out value='${employee.identity_number}'/>"/>
 
                     <label for="birthday">Ngày sinh:</label>
-                    <input type="date" id="birthday" name="birthday"
+                    <input type="hidden" id="birthday" name="birthday"
                            value="<c:out value='${employee.birthday}'/>"/>
 
                     <label for="gender">Giới tính:</label>

@@ -1,5 +1,5 @@
 function login(userName){
-    let data = `<div  id="userName"><a href="/login?action=showInformationUser">${userName}</a></div>
+    let data = `<div  id="userName"><a href="/main-page-controller?action=showInformationUser">${userName}</a></div>
                 <a onclick="logout()" id="logout" class="backgroundcolor-4 hover">Đăng xuất</a>`
     document.getElementById("sign").innerHTML = data;
 }

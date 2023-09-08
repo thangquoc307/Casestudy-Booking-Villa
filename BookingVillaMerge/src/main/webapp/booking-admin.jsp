@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link rel="stylesheet" href="css_admin/admin.css">
 <meta charset="UTF-8">
 <title>Title</title>
@@ -21,8 +22,7 @@
 <div id="l-navbar">
     <div id="nav1">
         <a href="/main-page-controller?action=backToMain" class="nav_logo">
-            <img id="logo" src="https://drive.google.com/uc?id=1cH2mCtzpEW1JtCt0qkxoD6PtEGbuT35c"
-                 alt=""
+            <img id="logo" src="https://drive.google.com/uc?id=1cH2mCtzpEW1JtCt0qkxoD6PtEGbuT35c" alt=""
                  class="nav_logo-icon">
         </a>
         <br><br>
@@ -61,8 +61,8 @@
                     <td>Villa <c:out value="${b.villaId}"/></td>
                     <td><c:out value="${b.checkIn}"/></td>
                     <td><c:out value="${b.checkOut}"/></td>
-                    <td><c:out value="${b.price}"/></td>
-                    <td><c:out value="${b.deposit}"/></td>
+                    <fmt:formatNumber value="${b.price}" type="currency" currencySymbol="" maxFractionDigits="0" />
+                    <fmt:formatNumber value="${b.deposit}" type="currency" currencySymbol="" maxFractionDigits="0" />
                     <td><c:out value="${b.checkInPersonName}"/></td>
                     <td><c:out value="${b.checkInPersonPhoneNumber}"/></td>
                     <td><c:out value="${b.customerCode}"/></td>
@@ -94,11 +94,13 @@
                     </div>
                     <div class="modal-body">
                         <input type="hidden" id="id_delete" name="id_delete">
-                        Bạn có muốn xoá <span id="name_delete" class="text-danger"></span>
+                        Bạn có muốn xoá <span id="name_delete" class="text-danger"></span> không ?
+                        <br><br>
+                        <span style="color: red">(Lưu ý: Hành động này không thể hoàn tác !)</span>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
-                        <button type="submit" class="btn btn-primary">Xoá</button>
+                        <button type="submit" class="btn btn-primary">Xoá a</button>
                     </div>
                 </form>
             </div>
@@ -116,7 +118,9 @@
                     </div>
                     <div class="modal-body">
                         <input type="hidden" id="bookingIdApproved" name="bookingIdApproved">
-                        Bạn có muốn duyệt Booking <span id="id_bookingIdApproved" class="text-danger"></span>
+                        Bạn có muốn duyệt Booking <span id="id_bookingIdApproved" class="text-danger"></span> không ?
+                        <br><br>
+                        <span style="color: red">(Lưu ý: Hành động này không thể hoàn tác !)</span>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
@@ -129,12 +133,12 @@
 </div>
 <script>
     function sendInForToModal(bookingId) {
-        document.getElementById("name_delete").innerText = "Mã booking " + bookingId;
+        document.getElementById("name_delete").innerText = "MÃ BOOKING " + bookingId;
         document.getElementById("id_delete").value = bookingId;
     }
     function sendInForToModalApproved(bookingId) {
-        document.getElementById("name_delete").innerText = "Mã booking " + bookingId;
-        document.getElementById("id_bookingIdApproved").value = bookingId;
+        document.getElementById("id_bookingIdApproved").innerText = "MÃ BOOKING " + bookingId;
+        document.getElementById("bookingIdApproved").value = bookingId;
     }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"

@@ -20,7 +20,23 @@ public class Villa {
     private int garage;
     private int capacity;
     private int villaId;
-
+    public Villa(int villaId, String imageMap, int price, int level, double area, double width, double deep, int bedroom, int kitchen, int living, int toilet, int relax, int gym, int garage, int capacity) {
+        this.villaId = villaId;
+        this.map = imageMap;
+        this.price = price;
+        this.level = level;
+        this.area = area;
+        this.width = width;
+        this.deep = deep;
+        this.bedroom = bedroom;
+        this.kitchen = kitchen;
+        this.living = living;
+        this.toilet = toilet;
+        this.relax = relax;
+        this.gym = gym;
+        this.garage = garage;
+        this.capacity = capacity;
+    }
     public Villa(int villaId, List<String> img, int price, int level, double area, double width, double deep, String map, int bedroom, int kitchen, int living, int toilet, int relax, int gym, int garage, int capacity, List<Integer> imgId) {
         this.img = img;
         this.price = price;

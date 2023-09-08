@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" href="css_admin/admin.css">
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
@@ -22,7 +22,7 @@
 <div id="l-navbar">
     <div id="nav1">
         <a href="/main-page-controller?action=backToMain" class="nav_logo">
-            <img id="logo"  src="https://drive.google.com/uc?id=1cH2mCtzpEW1JtCt0qkxoD6PtEGbuT35c"
+            <img id="logo" src="https://drive.google.com/uc?id=1cH2mCtzpEW1JtCt0qkxoD6PtEGbuT35c"
                  alt=""
                  class="nav_logo-icon">
         </a>
@@ -64,7 +64,11 @@
                     <tr>
                         <td><c:out value="${b.name}"/></td>
                         <td><c:out value="${b.identity_number}"/></td>
-                        <td><c:out value="${b.birthday}"/></td>
+                        <c:set var="dateString" value="${b.birthday}"/>
+                        <fmt:parseDate value="${dateString}" var="date" pattern="yyyy-MM-dd"/>
+                        <td>
+                            <fmt:formatDate value="${date}" pattern="dd/MM/yyyy"/>
+                        </td>
                         <c:if test="${b.gender == 0}">
                             <td>Nam</td>
                         </c:if>
@@ -104,7 +108,10 @@
                 </div>
                 <div class="modal-body">
                     <input type="hidden" id="id_delete" name="id_delete">
-                    Bạn có muốn xoá nhân viên <span id="name_delete" class="text-danger"></span>
+                    Bạn có muốn xoá nhân viên <span style="text-transform: uppercase" id="name_delete"
+                                                    class="text-danger"></span> không ?
+                    <br><br>
+                    <span style="color: red">(Lưu ý: Hành động này không thể hoàn tác !)</span>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>

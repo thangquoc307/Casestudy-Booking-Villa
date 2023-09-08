@@ -330,7 +330,26 @@ set is_delete = 1
 where booking_id = find_by_booking_id;
 end //
 delimiter ;
+-- Lấy thông tin account
+delimiter //
+create procedure get_inform_account()
+begin
+select customers.account_code, name, phone_number, customer_code as id
+from customers
+union
+select employees.account_code, name, phone_number, employee_code as id
+from employees;
+end //
+delimiter ;
 
+-- Lấy thông tin villa theo id 
+delimiter //
+create procedure get_inform_villa_by_id(find_by_villa_id int)
+begin
+select `villa_id`,`image_map`,`area`,`level`,`width`,`deep`,`garage`,`gym_room`,`relax_room`,`toilet`,`living_room`,`kitchen_room`,`bedroom`,`price`,`capacity` from `villas`
+where villa_id = find_by_villa_id;
+end //
+delimiter ;
 -- Đạt
 -- 1. Xóa tài khoản
 delimiter //

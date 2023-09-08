@@ -36,14 +36,13 @@ public class UserLoginServlet extends HttpServlet {
                 showInformationUser(request, response);
                 break;
             case "back":
-                MainPageService mainPageService = new MainPageService();
-                HttpSession session = request.getSession();
-                int role = (Integer) session.getAttribute("roleBack");
-                System.out.println("backToIndex");
-                System.out.println(role);
-                MainPageController.setRole(role);
-                String data =(String) request.getAttribute("data");
-                request.setAttribute("data",data);
+                String userName = (String)request.getAttribute("user_name");
+                request.setAttribute("user_name",userName);
+                MainPageService mainPageService= new MainPageService();
+                String dataVillaReload = mainPageService.loadingDataBaseVilla(request,response);
+                request.setAttribute("data", dataVillaReload);
+                request.setAttribute("role", MainPageController.getRole());
+                request.setAttribute("loginfail", 0);
                 request.getRequestDispatcher("/index.jsp").forward(request,response);
                 break;
         }
