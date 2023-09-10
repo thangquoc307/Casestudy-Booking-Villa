@@ -109,34 +109,76 @@
 }
 
 #formCreate{
+    padding: 2%;
     background-color: white;
     border-radius: 30px;
     display: grid;
-    grid-template-areas: "array-picture array-picture" "map data-input" "map button-submit";
-    grid-template-columns: 1fr 3fr;
-    grid-template-rows: 4fr 4fr 1fr;
+    grid-template-areas: "map array-picture" "map data-input" "map button-submit";
+    grid-template-columns: 2fr 5fr;
+    grid-template-rows: 4fr 2fr 1fr;
 }
 #map-picture{
     grid-area: map;
-    background-color: #cccccc;
+}
+#control-map{
+    width: 90%;
+    height: 100%;
+    border-radius: 30px;
+    display: grid;
+    grid-template-columns: 1fr 6fr;
+    padding: 2%;
+}
+#display-map{
+    border-radius: 30px;
+}
+#change_map_button{
+    width: 40px;
+    height: 40px;
+    transition-duration: 0.2s;
+}
+#change_map_button:hover{
+    scale: 1.1;
+    transition-duration: 0.2s;
 }
 #array-picture{
     grid-area: array-picture;
-    background-color: #d61b06;
+    display: grid;
+    grid-template-columns: 1fr 15fr;
+}
+#add-detail-button{
+    width: 40px;
+    height: 40px;
+    margin-top: 5%;
+    margin-left: 5%;
+    transition-duration: 0.2s;
+}
+#add-detail-button:hover{
+    scale: 1.1;
+    transition-duration: 0.2s;
+}
+#control-array{
+    width: 100%;
+    height: 95%;
+    border-radius: 30px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    overflow: auto;
+
 }
 #data-input{
-    background-color: #F15F90;
     grid-area: data-input;
 }
 #formCreate input{
     border-radius: 30px;
+    width: 90%;
     height: 30px;
     padding-left: 20px;
     border: #5D7B6F 1px dot-dash;
+    color: black;
 }
-#data-input table{
+#table-input{
     width: 90%;
-    height: 75%;
+    height: 90%;
 }
 #data-input td{
     width: 18%;
@@ -207,6 +249,42 @@
     font-size: 18px;
 }
 #alert-create-villa button:hover{
+    scale: 1.05;
+    transition-duration: 0.2s;
+}
+.array-detail-picture{
+    margin-left: 5%;
+    margin-top: 5%;
+    width: 90%;
+    height: 90%;
+    border-radius: 20px;
+}
+#alert-insert-picture{
+    position: fixed;
+    display: none;
+    border-radius: 20px;
+    top: 10%;
+    width: 20%;
+    left: 40%;
+    padding-top: 0;
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-bottom: 1%;
+    color: red;
+
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+}
+#alert-insert-picture button{
+    width: 40%;
+    padding: 20px;
+    border-radius: 30px;
+    transition-duration: 0.2s;
+    border: none;
+}
+#alert-insert-picture button:hover{
     scale: 1.05;
     transition-duration: 0.2s;
 }

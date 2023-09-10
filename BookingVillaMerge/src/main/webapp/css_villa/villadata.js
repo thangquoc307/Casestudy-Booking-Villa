@@ -81,8 +81,8 @@ function addVilla(){
 function deleteVilla(villaId){
     let villaDelete = document.getElementById("delete-board");
     villaDelete.style.display = "grid";
-    document.getElementById("villa-delete-id").innerHTML = villaId
-    document.getElementById("villa-delete").value = "Villa " + villaId;
+    document.getElementById("villa-delete-id").innerHTML = "Villa " + villaId
+    document.getElementById("villa-delete").value = villaId;
 }
 
 function closeDeleteBoard(){
@@ -126,12 +126,14 @@ function tickPicture(index){
     let picture = document.getElementById("array-picture-" + index);
     if (picture.style.border + "" == style){
         picture.style.border = "none";
+        picture.style.backgroundImage = `url("css_villa/icon/non-delete-picture.png")`
         deleteList = deleteList.filter(item => item !== stringIndex);
     } else {
         if (qcImg - 1 == deleteList.length){
             alertChooseAllPicture();
         } else {
             picture.style.border = style;
+            picture.style.backgroundImage = `url("css_villa/icon/delete-picture.png")`
             deleteList.push(stringIndex);
         }
     }

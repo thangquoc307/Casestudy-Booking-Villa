@@ -29,13 +29,20 @@ function cancelLogout(){
     logoutBoard.style.display = "none";
 }
 function alertCreateVilla(){
-    let board = document.getElementById("alert-create-villa");
-    board.style.display = "grid";
+    let inputMap = document.getElementById("input-map").value;
+    let inputDetail = document.getElementById("input-detail").value;
+    if (inputMap == "" || inputDetail == ""){
+        let alertInputImg = document.getElementById("alert-insert-picture");
+        alertInputImg.style.display = "flex";
+    } else {
+        let board = document.getElementById("alert-create-villa");
+        board.style.display = "grid";
+    }
 }
 
 function setup(){
     let form = document.getElementById("formCreate");
-    form.style.height = window.innerHeight * 0.8 + "px";
+    form.style.height = window.innerHeight * 0.7 + "px";
 }
 setup();
 function closeAlertBoard(){
@@ -44,4 +51,14 @@ function closeAlertBoard(){
 }
 function submitCreateVilla(){
     document.getElementById("actionEdit").click();
+}
+function changemap(){
+    document.getElementById("click-change-map").click();
+}
+function addpicture(){
+    document.getElementById("click-add-detail").click();
+}
+function closeAlertInsertPicture(){
+    let alertInputImg = document.getElementById("alert-insert-picture");
+    alertInputImg.style.display = "none";
 }

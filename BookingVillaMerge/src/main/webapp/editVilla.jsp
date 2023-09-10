@@ -41,20 +41,20 @@
     <input id="inputMap" type="hidden" name="img-map">
     <input id="inputDetailPic" type="hidden" name="img-detail">
 
-    <div id="area"><p>Diện tích (m<sup>2</sup>)</p><input required id="input-area" name="area" type="number" step="any"></div>
-    <div id="width"><p>Chiều dài (m)</p><input required id="input-width" name="width" type="number" step="any"></div>
-    <div id="deep"><p>Chiều sâu (m)</p><input required id="input-deep" name="deep" type="number" step="any"></div>
-    <div id="price"><p>Giá thuê (VND)</p><input required id="input-price" name="price" type="number"></div>
+    <div id="area"><p>Diện tích (m<sup>2</sup>)</p><input min="0" max="100000" required id="input-area" name="area" type="number" step="any"></div>
+    <div id="width"><p>Chiều dài (m)</p><input min="0" max="1000" required id="input-width" name="width" type="number" step="any"></div>
+    <div id="deep"><p>Chiều sâu (m)</p><input min="0" max="1000" required id="input-deep" name="deep" type="number" step="any"></div>
+    <div id="price"><p>Giá thuê (VND)</p><input min="0" max="1000000000" required id="input-price" name="price" type="number"></div>
 
-    <div id="level"><p>Số tầng</p><input required id="input-level" name="level" type="number"></div>
-    <div id="garage"><p>Số hầm</p><input required id="input-garage" name="garage" type="number"></div>
-    <div id="gym"><p>Phòng gym</p><input required id="input-gym" name="gym" type="number"></div>
-    <div id="relax"><p>Phòng giải trí</p><input required id="input-relax" name="relax" type="number"></div>
-    <div id="toilet"><p>Toilet</p><input required id="input-toilet" name="toilet" type="number"></div>
-    <div id="living"><p>Phòng khách</p><input required id="input-living" name="living" type="number"></div>
-    <div id="kitchen"><p>Bếp ăn</p><input required id="input-kitchen" name="kitchen" type="number"></div>
-    <div id="bedroom"><p>Phòng ngủ</p><input required id="input-bedroom" name="bedroom" type="number"></div>
-    <div id="capacity"><p>Sức chứa</p><input required id="input-capacity" name="capacity" type="number"></div>
+    <div id="level"><p>Số tầng</p><input min="0" max="100" required id="input-level" name="level" type="number"></div>
+    <div id="garage"><p>Số hầm</p><input min="0" max="100" required id="input-garage" name="garage" type="number"></div>
+    <div id="gym"><p>Phòng gym</p><input min="0" max="100" required id="input-gym" name="gym" type="number"></div>
+    <div id="relax"><p>Phòng giải trí</p><input min="0" max="100" required id="input-relax" name="relax" type="number"></div>
+    <div id="toilet"><p>Toilet</p><input min="0" max="100" required id="input-toilet" name="toilet" type="number"></div>
+    <div id="living"><p>Phòng khách</p><input min="0" max="100" required id="input-living" name="living" type="number"></div>
+    <div id="kitchen"><p>Bếp ăn</p><input min="0" max="100" required id="input-kitchen" name="kitchen" type="number"></div>
+    <div id="bedroom"><p>Phòng ngủ</p><input min="0" max="100" required id="input-bedroom" name="bedroom" type="number"></div>
+    <div id="capacity"><p>Sức chứa</p><input min="0" max="100" required id="input-capacity" name="capacity" type="number"></div>
 
     <button id="button-close" class="hover backgroundcolor-4" type="reset" onclick="closeEditBoard()">Hủy</button>
     <button id="button-finish" onclick="alertEditVilla()" class="hover backgroundcolor-4" type="button">Hoàn thành</button>

@@ -58,6 +58,7 @@ create table `villas` (
 );
 create table `bookings` (
     `booking_id` int primary key auto_increment,
+    `booking_time` datetime not null,
     `check_in` date not null,
     `check_out` date not null,
     `price` int not null,
@@ -78,6 +79,13 @@ create table `image_detail_links` (
     foreign key (`villa_id`) references `villas`(`villa_id`),
 	`is_delete` bit(1) default 0
 );
+create table `seen_time`(
+	`role` int primary key,
+    `time` datetime
+);
+insert into `seen_time`(`role`, `time`)
+values
+	(1, "2023-07-30 13:00:00");
 insert into `accounts`(`user_name`, `password_account`)
 values
 	("nguyenvanan123", "1234ertyhb5"),
@@ -176,16 +184,27 @@ values
 (10, "https://drive.google.com/uc?id=1FyuARERKJcUjMmVC3m9Db40ctcyBhNSq"),
 (10, "https://drive.google.com/uc?id=1jObNvjYuzlElEflfC7SFlaJQK-ENPO-i"),
 (10, "https://drive.google.com/uc?id=1u2Q2Ki_GViZbU-OUDj_Udv4Rqd5dwy5i");
-insert into `bookings`(`check_in`,`check_out`,`price`,`deposit`,`villa_id`,`customer_code`)
+insert into `bookings`(`check_in`,`check_out`,`price`,`deposit`,`villa_id`,`customer_code`,`booking_time`)
 values
-("2023-05-10","2023-05-20", 44100000, 5000000, 2, 3),
-("2023-04-01","2023-04-02", 2560000, 500000, 1, 3),
-("2022-08-10","2022-08-11", 3730000, 400000, 10, 4);
-insert into `bookings`(`check_in`,`check_out`,`price`,`deposit`,`villa_id`,`customer_code`,`check_in_person_name`,`check_in_person_phone_number`)
+("2023-09-10","2023-10-20", 44100000, 5000000, 2, 3, "2023-07-29 13:00:00"),
+("2023-09-01","2023-10-02", 2560000, 500000, 1, 3, "2023-08-30 13:00:00"),
+("2022-09-10","2022-10-11", 3730000, 400000, 10, 4, "2023-08-29 13:00:00");
+insert into `bookings`(`check_in`,`check_out`,`price`,`deposit`,`villa_id`,`customer_code`,`check_in_person_name`,`check_in_person_phone_number`,`booking_time`)
 values
-("2022-08-10","2022-08-11", 3730000, 400000, 10, 4, "Lê Nin", "0989997564");
+("2022-09-10","2022-10-10", 3730000, 400000, 10, 4, "Lê Nin", "0989997564","2023-08-29 15:00:00");
 
 -- Thắng
+delimiter //
+create procedure GetBookingCountAfterSeenTime()
+begin
+    declare `seen_time_value` datetime;
+    declare `booking_count` int;
+    select `time` into `seen_time_value` from `seen_time` where `role` = 1;
+    select count(*) into `booking_count` from `bookings` where `booking_time` > `seen_time_value`;
+    select `booking_count`;
+end //
+delimiter ;
+
 delimiter //
 create procedure get_detail_img()
 begin
@@ -242,8 +261,24 @@ delimiter ;
 
 
 -- hạnh
---  thêm tt nhân viên
-
+-- duyệt booking
+DELIMITER //
+create procedure approved_booking(in booking_id_approved int)
+begin
+update bookings
+set is_pending = 0
+where booking_id = booking_id_approved;
+end //
+DELIMITER ;
+-- xoá booking
+DELIMITER //
+create procedure delete_bookings(in delete_id int)
+begin
+update bookings
+set is_delete = 1
+where booking_id = delete_id;
+end //
+DELIMITER ;
 -- xoá nhân viên
 DELIMITER //
 create procedure delete_employee(in delete_id int)

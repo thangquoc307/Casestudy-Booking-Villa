@@ -5,6 +5,7 @@ import repository.MainPageRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class MainPageService implements IMainPageService{
@@ -29,7 +30,24 @@ public class MainPageService implements IMainPageService{
 
     @Override
     public void createVilla(HttpServletRequest request, HttpServletResponse response) {
+        double area = Double.parseDouble(request.getParameter("area"));
+        double width = Double.parseDouble(request.getParameter("width"));
+        double deep = Double.parseDouble(request.getParameter("deep"));
+        int price = Integer.parseInt(request.getParameter("price"));
+        int level = Integer.parseInt(request.getParameter("level"));
+        int garage = Integer.parseInt(request.getParameter("garage"));
+        int gym = Integer.parseInt(request.getParameter("gym"));
+        int relax = Integer.parseInt(request.getParameter("relax"));
+        int toilet = Integer.parseInt(request.getParameter("toilet"));
+        int living = Integer.parseInt(request.getParameter("living"));
+        int kitchen = Integer.parseInt(request.getParameter("kitchen"));
+        int bedroom = Integer.parseInt(request.getParameter("bedroom"));
+        int capacity = Integer.parseInt(request.getParameter("capacity"));
+        String map = request.getParameter("link-map");
+        String detailImg = request.getParameter("detail-pic");
 
+        mainPageRepository.createVilla(area,width,deep,price,level,garage,gym,
+                relax,toilet,living,kitchen,bedroom,capacity,map,detailImg);
     }
 
     @Override
@@ -80,6 +98,16 @@ public class MainPageService implements IMainPageService{
         String id = request.getParameter("id");
         String pass = request.getParameter("password");
         return mainPageRepository.login(id, pass);
+    }
+
+    @Override
+    public int getBookingNotSeen() {
+        return mainPageRepository.getBookingNotSeen();
+    }
+
+    @Override
+    public void setSeenTime() {
+        mainPageRepository.setSeenTime();
     }
 
     private String convertVillaToString(Villa villa){

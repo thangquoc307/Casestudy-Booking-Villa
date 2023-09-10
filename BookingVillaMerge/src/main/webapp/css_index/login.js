@@ -1,10 +1,17 @@
 function login(userName){
-    let data = `<div  id="userName"><a href="/main-page-controller?action=showInformationUser">${userName}</a></div>
+    let data = `<div id="userName">${userName}</div>
                 <a onclick="logout()" id="logout" class="backgroundcolor-4 hover">Đăng xuất</a>`
     document.getElementById("sign").innerHTML = data;
 }
-function displayButton(role){
+function displayButton(role, bookingTime){
     let data = "";
+    let bookingData = "";
+    if (bookingTime == '0'){
+        bookingData = `<button onclick="doGetByButton('accept booking')" class="backgroundcolor-2 hover">Duyệt booking</button>`
+    } else {
+        bookingData = `<button style="background-color: coral; color: white" onclick="doGetByButton('accept booking')" class="backgroundcolor-2 hover">Duyệt booking (${bookingTime})</button>`
+    }
+
     switch (role){
         case "1":
             data = `<button onclick="doGetByButton('my profile')" class="backgroundcolor-2 hover">Tài khoản</button>
@@ -13,13 +20,11 @@ function displayButton(role){
                     <button onclick="doGetByButton('feedback')" class="backgroundcolor-2 hover">Phản hồi</button>`
             break;
         case "2":
-            data = `<button onclick="doGetByButton('accept booking')" class="backgroundcolor-2 hover">Duyệt booking</button>
-                    <button onclick="doGetByButton('customer account')" class="backgroundcolor-2 hover">Khách hàng</button>`
+            data = bookingData + `<button onclick="doGetByButton('customer account')" class="backgroundcolor-2 hover">Khách hàng</button>`
             break;
         case "3":
-            data = `<button onclick="doGetByButton('villa manage')" class="backgroundcolor-2 hover">Villa</button>
-                    <button onclick="doGetByButton('accept booking')" class="backgroundcolor-2 hover">Duyệt booking</button>
-                    <button onclick="doGetByButton('customer account')" class="backgroundcolor-2 hover">Khách hàng</button>
+            data = `<button onclick="doGetByButton('villa manage')" class="backgroundcolor-2 hover">Villa</button>` + bookingData +
+                    `<button onclick="doGetByButton('customer account')" class="backgroundcolor-2 hover">Khách hàng</button>
                     <button onclick="doGetByButton('employee account')" class="backgroundcolor-2 hover">Nhân viên</button>`
             break;
         default:
@@ -45,7 +50,7 @@ function doGetByButton(action){
             window.location.href = 'mailto:lequocthang307@gmail.com';
             break;
         case 'accept booking':
-            window.location.href = "/admin-booking?action=getAllBooking"
+            window.location.href = "/main-page-controller?action=booking"
             break;
         case 'customer account':
             window.location.href = "/customer?action=getAllCustomer"

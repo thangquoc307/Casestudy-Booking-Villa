@@ -122,20 +122,17 @@
     grid-template-columns: repeat(5, 1fr);
     overflow: auto;
 }
-#picture img{
+.array-detail-picture{
     margin-left: 5%;
     margin-top: 5%;
+    padding-bottom: 15%;
     width: 90%;
     height: 90%;
-}
-.array-detail-picture{
-    height: 90%;
-    width: 90%;
-    margin: 5px;
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
     border-radius: 20px;
-    background-position: center;
+    background-position: bottom;
+    background-image: url("icon/non-delete-picture.png");
 }
 #add-detail-picture{
     background-image: url("icon/addImg.png");
@@ -158,7 +155,8 @@
 #map-picture img{
     width: 10%;
     transition-duration: 0.2s;
-}#map-picture img:hover{
+}
+#map-picture img:hover{
      scale: 1.1;
      transition-duration: 0.2s;
  }
@@ -366,6 +364,12 @@
     flex-direction: column;
     justify-content: center;
     opacity: 0.95;
+}
+.delete-icon{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
 }
 #alert-edit-p1{
     padding-top: 5%;

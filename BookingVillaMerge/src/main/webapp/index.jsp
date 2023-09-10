@@ -125,13 +125,14 @@
     let role = '${role}';
     let userName = '${user_name}';
     var checkRole = (role == "1" || role == "2" || role == "3");
+    let timesBooking = '${seenBooking}';
 
     if (role == "0"){
         loginDisplay();
     } else if (checkRole) {
         login(userName);
     }
-    displayButton(role);
+    displayButton(role, timesBooking);
 
     let stringVilla = '${data}';
     let alertLogin = '${loginfail}';

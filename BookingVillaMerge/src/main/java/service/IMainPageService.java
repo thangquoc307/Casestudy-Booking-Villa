@@ -2,6 +2,7 @@ package service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface IMainPageService {
@@ -11,4 +12,6 @@ public interface IMainPageService {
     void editVilla(HttpServletRequest request, HttpServletResponse response);
     void deleteVilla(HttpServletRequest request, HttpServletResponse response);
     List<String> login(HttpServletRequest request, HttpServletResponse response);
+    int getBookingNotSeen();
+    void setSeenTime();
 }

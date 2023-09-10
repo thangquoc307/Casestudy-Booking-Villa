@@ -51,7 +51,6 @@ public class MainPageController extends HttpServlet {
         switch (action){
             case "getdata":
                 System.out.println("doget controller getdata");
-
                 String data = mainPageService.loadingDataBaseVilla(request,response);
                 request.setAttribute("data", data);
                 request.getRequestDispatcher("/index.jsp").forward(request,response);
@@ -76,11 +75,18 @@ public class MainPageController extends HttpServlet {
                 response.sendRedirect("user-information.jsp");
                 break;
             case "backToMain":
+                int timesBookingNoSeen = 0;
+                if (getRole() == 3){
+                    timesBookingNoSeen = mainPageService.getBookingNotSeen();
+
+                }
                 String dataVillaReload = mainPageService.loadingDataBaseVilla(request,response);
                 request.setAttribute("data", dataVillaReload);
                 request.setAttribute("role", getRole());
                 request.setAttribute("user_name", getUser());
                 request.setAttribute("loginfail", 0);
+                request.setAttribute("seenBooking", timesBookingNoSeen);
+
                 request.getRequestDispatcher("/index.jsp").forward(request,response);
                 break;
             case "createVilla":
@@ -91,6 +97,9 @@ public class MainPageController extends HttpServlet {
                     request.getRequestDispatcher("createVilla.jsp").forward(request,response);
                 }
                 break;
+            case "booking":
+                mainPageService.setSeenTime();
+                response.sendRedirect("/admin-booking?action=getAllBooking");
         }
     }
 
@@ -108,6 +117,7 @@ public class MainPageController extends HttpServlet {
                 List<String> accountInfo = mainPageService.login(request,response);
                 String data = mainPageService.loadingDataBaseVilla(request,response);
                 request.setAttribute("data", data);
+                int timesBookingNoSeen = 0;
 
                 if (accountInfo.size() == 0){
                     System.out.println("fail");
@@ -125,15 +135,18 @@ public class MainPageController extends HttpServlet {
                             break;
                         case "customer service":
                             setRole(2);
+                            timesBookingNoSeen = mainPageService.getBookingNotSeen();
                             break;
                         case "admin":
                             setRole(3);
+                            timesBookingNoSeen = mainPageService.getBookingNotSeen();
                             break;
                         default:
                             setRole(0);
                             break;
                     }
 
+                    request.setAttribute("seenBooking", timesBookingNoSeen);
                     request.setAttribute("role", getRole());
                     request.setAttribute("user_name", getUser());
                     request.setAttribute("loginfail", 0);
@@ -156,6 +169,15 @@ public class MainPageController extends HttpServlet {
                 }
                 String manageVillaEdit = mainPageService.loadingDataBaseVilla(request,response);
                 request.setAttribute("data", manageVillaEdit);
+                request.setAttribute("user_name", getUser());
+                request.getRequestDispatcher("editVilla.jsp").forward(request,response);
+                break;
+            case "create-villa":
+                if (getRole() == 3){
+                    mainPageService.createVilla(request,response);
+                }
+                String manageVillaEditAfter = mainPageService.loadingDataBaseVilla(request,response);
+                request.setAttribute("data", manageVillaEditAfter);
                 request.setAttribute("user_name", getUser());
                 request.getRequestDispatcher("editVilla.jsp").forward(request,response);
                 break;
