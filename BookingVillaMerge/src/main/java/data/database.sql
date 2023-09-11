@@ -58,7 +58,7 @@ create table `villas` (
 );
 create table `bookings` (
     `booking_id` int primary key auto_increment,
-    `booking_time` datetime not null,
+    `booking_time` datetime default current_timestamp,
     `check_in` date not null,
     `check_out` date not null,
     `price` int not null,
@@ -103,7 +103,7 @@ values
 insert into `customers`(`name`, `identity_number`, `birthday`, `gender`, `phone_number`, `address`, `email`, `account_code`)
 values
 	("Nguyễn Văn An", "362312342001", "1991-10-03", 0, "0704695457", "10, Đường Nguyễn Du, Thành phố Hà Nội, Tỉnh Hà Nội", "nguyenvana@gmail.com", 1),
-	("Trần Minh Đạt", "491111411999", "1998-01-01", 0, "054893500","15, Đường Lê Lợi, Thành phố Đà Nẵng, Tỉnh Đà Nẵng", "tranminhdat123@gmail.com", 2),
+	("Trần Minh Đạt", "491111411999", "1998-01-01", 0, "054893500","15, Đường Lê Lợi, Thành phố Đà Nẵng, Tỉnh Đà Nẵng", "bondat9999@gmail.com", 2),
 	("Lê Văn Bình", "362300567801", "2000-03-19", 0, "0935578085", "30, Đường Nguyễn Huệ, Thành phố Hồ Chí Minh, Tỉnh Hồ Chí Minh", "levanbinh@gmail.com", 3),
 	("Nguyễn Ngọc Hân", "398670012001", "1999-08-18", 1, "0123437963","9, Đường Trần Phú, Thành phố Hội An, Tỉnh Quảng Nam", "nguyenngochan1999@gmail.com", 4);
 insert into `employees`(`name`, `identity_number`, `birthday`, `gender`, `phone_number`, `email`, `account_code`,`position_code`)
@@ -310,7 +310,8 @@ from bookings
 join customers on bookings.customer_code = customers.customer_code
 join accounts on  customers.account_code = accounts.account_code
 where bookings.is_delete = 0 and is_pending = 1 and accounts.account_code = find_by_account_code
-group by bookings.booking_id;
+group by bookings.booking_id
+order by booking_time desc;
 end //
 delimiter ;
 delimiter //
@@ -331,7 +332,8 @@ from bookings
 join customers on bookings.customer_code = customers.customer_code
 join accounts on  customers.account_code = accounts.account_code
 where bookings.is_delete = 0 and is_pending = 0 and accounts.account_code = find_by_account_code
-group by bookings.booking_id;
+group by bookings.booking_id
+order by booking_time desc;
 end //
 delimiter ;
 -- Đã hủy
@@ -343,7 +345,8 @@ from bookings
 join customers on bookings.customer_code = customers.customer_code
 join accounts on  customers.account_code = accounts.account_code
 where bookings.is_delete = 1 and accounts.account_code = find_by_account_code
-group by bookings.booking_id;
+group by bookings.booking_id
+order by booking_time desc;
 end //
 delimiter ;
 -- Update booking

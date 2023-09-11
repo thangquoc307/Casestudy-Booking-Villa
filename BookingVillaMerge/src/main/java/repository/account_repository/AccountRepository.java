@@ -35,6 +35,9 @@ public class AccountRepository implements IAccountRepository{
             "where account_code = ?";
 
     private static final String LOGIN = "call check_account(?,?);";
+    private static final String SELECT_USERNAME = "select  accounts.user_name from accounts\n" +
+            "join customers on customers.account_code =accounts.account_code\n" +
+            "where email =  ?;";
     @Override
     public Account getAccountByPhoneNumberAndPassword (String phoneNumber, String password) {
         Connection connection = BaseRepository.getConnection();
@@ -186,5 +189,20 @@ public class AccountRepository implements IAccountRepository{
         } else {
             return accounts.get(0);
         }
+    }
+    public Account getUserNameByEmail(String email) {
+        Connection connection = BaseRepository.getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USERNAME);
+            preparedStatement.setString(1,email);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                return new Account(resultSet.getString(1));
+            }
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
     }
 }

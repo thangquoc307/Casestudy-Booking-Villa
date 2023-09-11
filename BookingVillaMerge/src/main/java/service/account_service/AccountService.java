@@ -9,14 +9,7 @@ import java.util.List;
 
 public class AccountService implements IAccountService {
     private IAccountRepository iAccountRepository = new AccountRepository();
-//    @Override
-//    public boolean login(String phoneNumber, String password) {
-//        Account account = iAccountRepository.getAccountByPhoneNumberAndPassword(phoneNumber,password);
-//        if (account != null){
-//            return true;
-//        }
-//        return false;
-//    }
+
     @Override
     public void save(Account account) {
         iAccountRepository.save(account);
@@ -55,5 +48,11 @@ public class AccountService implements IAccountService {
     public List<String> login(String id, String password) {
         List<String> stringList = iAccountRepository.login(id,password);
         return stringList;
+    }
+
+    @Override
+    public Account getUserNameByEmail(String email) {
+        Account account = iAccountRepository.getUserNameByEmail(email);
+        return account;
     }
 }

@@ -5,8 +5,9 @@ import model.Customer;
 import repository.customer_repository.CustomerRepository;
 import repository.customer_repository.ICustomerRepository;
 
-public class CustomerService implements ICustomerService{
+public class CustomerService implements ICustomerService {
     private ICustomerRepository iCustomerRepository = new CustomerRepository();
+
     @Override
     public void saveCustomer(Customer customer) {
         iCustomerRepository.saveCustomer(customer);
@@ -33,9 +34,9 @@ public class CustomerService implements ICustomerService{
     }
 
     @Override
-    public void updateCustomer(String name, String identityNumber, String birthday, boolean gender,
-                               String phoneNumber, String email, String address, int customerCode) {
-        iCustomerRepository.updateCustomer(name,identityNumber,birthday,gender,phoneNumber,
-                email,address,customerCode);
+    public void updateCustomer(String name, String birthday, boolean gender,
+                                String address, int customerCode) {
+        iCustomerRepository.updateCustomer(name, birthday, gender,
+                address, customerCode);
     }
 }

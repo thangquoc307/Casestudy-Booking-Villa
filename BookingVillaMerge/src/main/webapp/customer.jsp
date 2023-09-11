@@ -73,7 +73,7 @@
                     <td>
                         </button>
                         <button onclick="sendInForToModal('${c.customer_code}','${c.name}')" type="button"
-                                class="btn btn-outline-danger"
+                                class="btn btn-danger"
                                 data-bs-toggle="modal" data-bs-target="#exampleModal">Xoá
                         </button>
                     </td>

@@ -34,8 +34,8 @@ function validateUserName(){
     }
 }
 function clearErrorUserName (){
-    let identityNumberError = document.getElementById("identityNumberFormatError");
-    identityNumberError.innerText = "";
+    let userNameError = document.getElementById("userNameFormatError");
+    userNameError.innerText = "";
 }
 
 // 2.Email

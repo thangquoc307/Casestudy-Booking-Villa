@@ -45,9 +45,8 @@
                                 <div class="form-outline mb-4">
                                     <label class="form-label">Giới tính</label>
                                     <select name="gender" id="gender">
-                                        <option value="male">Nam</option>
-                                        <option value="female">Nữ</option>
-                                        <option value="other">Khác</option>
+                                        <option value="false">Nam</option>
+                                        <option value="true">Nữ</option>
                                     </select>
                                 </div>
 
@@ -80,7 +79,7 @@
                                 <span id="userNameFormatError" class="text-danger" role="alert"> </span>
                                 <div class="form-outline mb-4">
                                     <label class="form-label" for="userName">Tên tài khoản</label>
-                                    <input onblur="validateUserName()" onfocus="clearErrorUserName()" type="text" name="userName" id="userName" class="form-control form-control-lg" required/>
+                                    <input style="scale: none" onblur="validateUserName()" onfocus="clearErrorUserName()" type="text" name="userName" id="userName" class="form-control form-control-lg" required/>
                                 </div>
 
                                 <p class="text-danger" role="alert">${passwordError}</p>

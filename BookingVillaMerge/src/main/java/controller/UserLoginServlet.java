@@ -19,36 +19,11 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
+
 @WebServlet(name = "login", value = "/login")
 public class UserLoginServlet extends HttpServlet {
     private IAccountService iAccountService = new AccountService();
     private ICustomerService iCustomerService = new CustomerService();
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        String action = request.getParameter("action");
-        if (action == null) {
-            action = "";
-        }
-        switch (action) {
-            case "showInformationUser":
-                showInformationUser(request, response);
-                break;
-            case "back":
-                HttpSession session = request.getSession();
-                Customer customer = (Customer) session.getAttribute("customer");
-                request.setAttribute("user_name",customer.getCustomerName());
-                MainPageService mainPageService= new MainPageService();
-                String dataVillaReload = mainPageService.loadingDataBaseVilla(request,response);
-                request.setAttribute("data", dataVillaReload);
-                request.setAttribute("role", MainPageController.getRole());
-                request.setAttribute("loginfail", 0);
-                request.getRequestDispatcher("/index.jsp").forward(request,response);
-                break;
-        }
-    }
-
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -69,6 +44,50 @@ public class UserLoginServlet extends HttpServlet {
                 break;
             case "delete":
                 delete(request, response);
+                break;
+        }
+    }
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        String action = request.getParameter("action");
+        if (action == null) {
+            action = "";
+        }
+        switch (action) {
+            case "showInformationUser":
+                showInformationUser(request, response);
+                break;
+            case "back":
+                String userName = (String)request.getAttribute("user_name");
+                request.setAttribute("user_name",userName);
+                MainPageService mainPageService= new MainPageService();
+                String dataVillaReload = mainPageService.loadingDataBaseVilla(request,response);
+                request.setAttribute("data", dataVillaReload);
+                request.setAttribute("role", MainPageController.getRole());
+                request.setAttribute("loginfail", 0);
+                request.getRequestDispatcher("/index.jsp").forward(request,response);
+                break;
+            case "logout":
+                HttpSession session = request.getSession();
+                session.removeAttribute("customer");
+                System.out.println("removed customer");
+                session.removeAttribute("account");
+                System.out.println("removed account");
+                session.removeAttribute("accountCode");
+                request.removeAttribute("accountCode");
+                System.out.println("removed accountCode");
+                session.removeAttribute("accountCode");
+                session.removeAttribute("userName");
+                session.removeAttribute("identityNumber");
+                session.removeAttribute("dateOfBirth");
+                session.removeAttribute("gender");
+                session.removeAttribute("phoneNumber");
+                session.removeAttribute("email");
+                session.removeAttribute("address");
+                request.removeAttribute("user_name");
+                MainPageController.setRole(0);
+                request.getRequestDispatcher("/index.jsp").forward(request,response);
                 break;
         }
     }
@@ -141,64 +160,19 @@ public class UserLoginServlet extends HttpServlet {
             }
         }
         String fullName = request.getParameter("fullName");
-        String identityNumber = request.getParameter("identityNumber");
-        String birthday = request.getParameter("dateOfBirth");
-        boolean gender = Boolean.parseBoolean(request.getParameter("gender"));
-        String phoneNumber = request.getParameter("phoneNumber");
-        String email = request.getParameter("email");
+        String birthday = request.getParameter("birthday");
+        String gender = request.getParameter("gender");
+        boolean genderValue = false;
+        if(gender.equals("Nam")){
+            genderValue = false;
+        }else {
+            genderValue = true;
+        }
         String address = request.getParameter("address");
         int customerCode = customer.getCustomerCode();
-        Customer oldCustomer = iCustomerService.getCustomerByCustomerCode(customer.getCustomerCode());
-        if (oldCustomer.getPhoneNumber().equals(phoneNumber) && oldCustomer.getIdentityNumber().equals(identityNumber)
-                && oldCustomer.getEmail().equals(email)) {
-            iCustomerService.updateCustomer(fullName, identityNumber, birthday, gender, phoneNumber, email, address, customerCode);
-        }
-        if (!(oldCustomer.getEmail().equals(email)) && oldCustomer.getIdentityNumber().equals(identityNumber)
-                && oldCustomer.getPhoneNumber().equals(phoneNumber)) {
-            if (ValidateCustomer.validateEmail(email)) {
-                iCustomerService.updateCustomer(fullName, identityNumber, birthday, gender, phoneNumber, email, address, customerCode);
-            } else {
-                request.setAttribute("emailError", "Email đã tồn tại");
-                try {
-                    request.getRequestDispatcher("form-update-user.jsp").forward(request, response);
-                } catch (ServletException e) {
-                    throw new RuntimeException(e);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }
-        if (oldCustomer.getEmail().equals(email) && !(oldCustomer.getIdentityNumber().equals(identityNumber))
-                && oldCustomer.getPhoneNumber().equals(phoneNumber)) {
-            if (ValidateCustomer.validateIdentityNumber(identityNumber)) {
-                iCustomerService.updateCustomer(fullName, identityNumber, birthday, gender, phoneNumber, email, address, customerCode);
-            } else {
-                request.setAttribute("identityNumberError", "Số CMND/CCCD đã tồn tại");
-                try {
-                    request.getRequestDispatcher("form-update-user.jsp").forward(request, response);
-                } catch (ServletException e) {
-                    throw new RuntimeException(e);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }
-        if (oldCustomer.getEmail().equals(email) && oldCustomer.getIdentityNumber().equals(identityNumber)
-                && !(oldCustomer.getPhoneNumber().equals(phoneNumber))) {
-            if (ValidateCustomer.validatePhoneNumber(phoneNumber)) {
-                iCustomerService.updateCustomer(fullName, identityNumber, birthday, gender, phoneNumber, email, address, customerCode);
-            } else {
-                request.setAttribute("phoneNumberError", "Số điện thoại đã tồn tại");
-                try {
-                    request.getRequestDispatcher("form-update-user.jsp").forward(request, response);
-                } catch (ServletException e) {
-                    throw new RuntimeException(e);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }
-        Customer newCustomer = iCustomerService.getCustomerByPhoneNumber(phoneNumber);
+        iCustomerService.updateCustomer(fullName,birthday, genderValue,address, customerCode);
+
+        Customer newCustomer = iCustomerService.getCustomerByCustomerCode(customer.getCustomerCode());
         session.setAttribute("customer", newCustomer);
         showInformationUser(request, response);
     }
@@ -210,10 +184,10 @@ public class UserLoginServlet extends HttpServlet {
             session.setAttribute("accountCode", customer.getAccountCode());
             session.setAttribute("userName", customer.getCustomerName());
             session.setAttribute("identityNumber", customer.getIdentityNumber());
-            session.setAttribute("birthday", customer.getDateOfBirth());
-            if (customer.isGender()) {
+            session.setAttribute("dateOfBirth",customer.getDateOfBirth());
+            if(customer.isGender()){
                 session.setAttribute("gender", "Nữ");
-            } else {
+            }else {
                 session.setAttribute("gender", "Nam");
             }
             session.setAttribute("phoneNumber", customer.getPhoneNumber());
@@ -280,10 +254,8 @@ public class UserLoginServlet extends HttpServlet {
                     MainPageController.setRole(0);
                     break;
             }
-
             request.setAttribute("role", MainPageController.getRole());
-            request.setAttribute("user_name", accountInfo.get(1));
-            session.setAttribute("roleBack",MainPageController.getRole());
+            session.setAttribute("user_name", accountInfo.get(1));
         }
         try {
             request.getRequestDispatcher("/index.jsp").forward(request, response);
@@ -301,6 +273,5 @@ public class UserLoginServlet extends HttpServlet {
             Account account = iAccountService.getAccountByAccountCode(accountCode);
             session.setAttribute("account", account);
         }
-
     }
 }

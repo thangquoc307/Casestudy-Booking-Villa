@@ -46,6 +46,7 @@
                 <th>Tên villa</th>
                 <th>Ngày nhận</th>
                 <th>Ngày trả</th>
+                <th>Ngày booking</th>
                 <th>Giá</th>
                 <th>Đặt cọc</th>
                 <th>Người đặt</th>
@@ -61,19 +62,24 @@
                     <td>Villa <c:out value="${b.villaId}"/></td>
                     <td><c:out value="${b.checkIn}"/></td>
                     <td><c:out value="${b.checkOut}"/></td>
-                    <fmt:formatNumber value="${b.price}" type="currency" currencySymbol="" maxFractionDigits="0" />
-                    <fmt:formatNumber value="${b.deposit}" type="currency" currencySymbol="" maxFractionDigits="0" />
+                    <td><c:out value="${b.bookingDate}"/></td>
+                    <td>
+                        <fmt:formatNumber value="${b.price}" type="currency" currencySymbol="" maxFractionDigits="0" />
+                    </td>
+                    <td>
+                        <fmt:formatNumber value="${b.deposit}" type="currency" currencySymbol="" maxFractionDigits="0" />
+                    </td>
                     <td><c:out value="${b.checkInPersonName}"/></td>
                     <td><c:out value="${b.checkInPersonPhoneNumber}"/></td>
                     <td><c:out value="${b.customerCode}"/></td>
                     <td>
-                        <button onclick="sendInForToModalApproved('${b.id}')" type="button" class="btn btn-outline-success"
+                        <button ${b.pending == 'true' ? '' : 'disabled'} onclick="sendInForToModalApproved('${b.id}')" type="button" class="btn btn-warning"
                                 data-bs-toggle="modal" data-bs-target = "#exampleModal1">
                             <c:out value="${b.pending == 'true' ? ' Duyệt' : 'Đã duyệt'}"/>
                         </button>
                     </td>
                     <td>
-                        <button onclick="sendInForToModal('${b.id}')" type="button" class="btn btn-outline-danger"
+                        <button  onclick="sendInForToModal('${b.id}')" type="button" class="btn btn-danger"
                                 class="btn btn-outline-success"
                                 data-bs-toggle="modal" data-bs-target = "#exampleModal">Xoá
                         </button>
@@ -100,7 +106,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
-                        <button type="submit" class="btn btn-primary">Xoá a</button>
+                        <button type="submit" class="btn btn-primary">Xoá</button>
                     </div>
                 </form>
             </div>

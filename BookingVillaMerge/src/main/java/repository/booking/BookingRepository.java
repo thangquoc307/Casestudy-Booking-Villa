@@ -5,6 +5,7 @@ import model.booking.Booking;
 import repository.BaseRepository;
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -95,6 +96,7 @@ public class BookingRepository implements IBookingRepository {
                 int bookingId = resultSet.getInt("booking_id");
                 String checkIn = resultSet.getDate("check_in").toLocalDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
                 String checkOut = resultSet.getDate("check_out").toLocalDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                String bookingTime = resultSet.getDate("booking_time").toLocalDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
                 int price = resultSet.getInt("price");
                 int deposit = resultSet.getInt("deposit");
                 String checkInPersonName = resultSet.getString("check_in_person_name");
@@ -103,7 +105,7 @@ public class BookingRepository implements IBookingRepository {
                 int customerCode = resultSet.getInt("customer_code");
                 boolean isPending = resultSet.getBoolean("is_pending");
                 boolean isDelete = resultSet.getBoolean("is_delete");
-                bookingListPending.add(new Booking(bookingId, checkIn, checkOut, price, deposit,
+                bookingListPending.add(new Booking(bookingId, checkIn, checkOut,bookingTime, price, deposit,
                         checkInPersonName, checkInPersonPhoneNumber, villaId, customerCode, isPending, isDelete));
 //                bookingListPending.add(new Booking(bookingId, checkIn, checkOut, price, deposit, villaId));
             }
@@ -126,6 +128,7 @@ public class BookingRepository implements IBookingRepository {
                 int bookingId = resultSet.getInt("booking_id");
                 String checkIn = resultSet.getDate("check_in").toLocalDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
                 String checkOut = resultSet.getDate("check_out").toLocalDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                String bookingTime = resultSet.getDate("booking_time").toLocalDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
                 int price = resultSet.getInt("price");
                 int deposit = resultSet.getInt("deposit");
                 String checkInPersonName = resultSet.getString("check_in_person_name");
@@ -134,7 +137,7 @@ public class BookingRepository implements IBookingRepository {
                 int customerCode = resultSet.getInt("customer_code");
                 boolean isPending = resultSet.getBoolean("is_pending");
                 boolean isDelete = resultSet.getBoolean("is_delete");
-                bookingListApproved.add(new Booking(bookingId, checkIn, checkOut, price, deposit,
+                bookingListApproved.add(new Booking(bookingId, checkIn, checkOut, bookingTime, price, deposit,
                         checkInPersonName, checkInPersonPhoneNumber, villaId, customerCode, isPending, isDelete));
             }
             connection.close();
@@ -156,6 +159,7 @@ public class BookingRepository implements IBookingRepository {
                 int bookingId = resultSet.getInt("booking_id");
                 String checkIn = resultSet.getDate("check_in").toLocalDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
                 String checkOut = resultSet.getDate("check_out").toLocalDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                String bookingTime = resultSet.getDate("booking_time").toLocalDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
                 int price = resultSet.getInt("price");
                 int deposit = resultSet.getInt("deposit");
                 String checkInPersonName = resultSet.getString("check_in_person_name");
@@ -164,7 +168,7 @@ public class BookingRepository implements IBookingRepository {
                 int customerCode = resultSet.getInt("customer_code");
                 boolean isPending = resultSet.getBoolean("is_pending");
                 boolean isDelete = resultSet.getBoolean("is_delete");
-                bookingListDelete.add(new Booking(bookingId, checkIn, checkOut, price, deposit,
+                bookingListDelete.add(new Booking(bookingId, checkIn, bookingTime, checkOut, price, deposit,
                         checkInPersonName, checkInPersonPhoneNumber, villaId, customerCode, isPending, isDelete));
             }
             connection.close();
@@ -177,13 +181,14 @@ public class BookingRepository implements IBookingRepository {
     @Override
     public void save(Booking booking) {
         Connection connection = BaseRepository.getConnection();
-        System.out.println("toi repo");
         try {
             CallableStatement callableStatement = connection.prepareCall(ADD_BOOKING);
             callableStatement.setDate(1, Date.valueOf(LocalDate.parse(booking.getCheckIn(),
                     DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
             callableStatement.setDate(2, Date.valueOf(LocalDate.parse(booking.getCheckOut(),
                     DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
+//            callableStatement.setDate(3, Date.valueOf(LocalDate.parse(booking.getCheckOut(),
+//                    DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
             callableStatement.setInt(3, booking.getPrice());
             callableStatement.setInt(4, booking.getDeposit());
             callableStatement.setString(5, booking.getCheckInPersonName());

@@ -130,6 +130,9 @@
 }
 #display-map{
     border-radius: 30px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 #change_map_button{
     width: 40px;
@@ -170,7 +173,7 @@
 }
 #formCreate input{
     border-radius: 30px;
-    width: 90%;
+    width: 200px;
     height: 30px;
     padding-left: 20px;
     border: #5D7B6F 1px dot-dash;

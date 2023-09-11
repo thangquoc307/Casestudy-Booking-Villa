@@ -14,17 +14,16 @@
           integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="css_index/main_page_css.css">
 </head>
-<body style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');background-size: cover">
-<section class="bg-image" >
-    <div class="mask d-flex align-items-center gradient-custom-3">
+<body  style="background-image: url('css_user/css/logo/img4.jpg');background-size: cover">
+<section class="bg-image">
+    <div class="mask d-flex align-items-center">
         <div class="container h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
-                <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                <div class="col-12 col-md-9 col-lg-7 col-xl-6" style="margin-top: 10%">
                     <div class="card" style="border-radius: 15px;">
                         <div class="card-body p-5">
                             <div class="form-outline mb-4">
-                                <h3>Sửa thông tin.<br> Lưu ý: đối với các trường email, số CMND, số điện thoại. <br>
-                                Mỗi lần sửa chỉ sửa một trong các trường !</h3>
+                                <h3 style="text-align: center">Sửa thông tin</h3>
                             </div>
                             <form action="/login?action=update" method="post">
                                 <p class="text-danger" role="alert">${updateError}</p>
@@ -33,43 +32,22 @@
                                     <input type="text" id="fullName" name="fullName" value="${sessionScope.userName}" class="form-control form-control-lg" required/>
                                 </div>
 
-                                <p class="text-danger" role="alert">${identityNumberError}</p>
-                                <span id="identityNumberFormatError" class="text-danger" role="alert"></span>
                                 <div class="form-outline mb-4">
-                                    <label class="form-label" for="identityNumber">Số CMND/CCCD</label>
-                                    <input onblur="validateIdentityNumber()" onfocus="clearErrorIdentityNumber()" type="text" value="${sessionScope.identityNumber}" id="identityNumber" name="identityNumber" class="form-control form-control-lg" required/>
-                                </div>
-
-                                <div class="form-outline mb-4">
-                                    <label class="form-label" for="dateOfBirth">Ngày sinh</label>
-                                    <input  type="date" id="dateOfBirth" name="dateOfBirth" value="${sessionScope.birthday}" class="form-control form-control-lg" required/>
+                                    <label class="form-label" for="birthday">Ngày sinh</label>
+                                    <input  type="date" id="birthday" name="birthday" value="${sessionScope.dateOfBirth}" class="form-control form-control-lg" required/>
                                 </div>
 
                                 <div class="form-outline mb-4">
                                     <label for="gender">Giới tính:</label>
                                     <select name="gender" id="gender">
-                                        <option ${sessionScope.gender == "1"  ? "selected" : ""} value="1">Nam</option>
-                                        <option ${sessionScope.gender == "0"  ? "selected" : ""} value="0">Nữ</option>
+                                        <option ${sessionScope.gender == "Nam"  ? "selected" :''} value="Nam">Nam</option>
+                                        <option ${sessionScope.gender == "Nữ"  ? "selected" :''} value="Nữ">Nữ</option>
                                     </select>
-                                </div>
-
-                                <p class="text-danger" role="alert">${phoneNumberError}</p>
-                                <span id="phoneNumberFormatError" class="text-danger" role="alert"></span>
-                                <div class="form-outline mb-4">
-                                    <label class="form-label" for="phoneNumber">Số điện thoại</label>
-                                    <input onblur="validatePhoneNumber()" onfocus="clearErrorPhoneNumber()" value="${sessionScope.phoneNumber}" type="text" id="phoneNumber" name="phoneNumber" class="form-control form-control-lg" required/>
-                                </div>
-
-                                <p class="text-danger" role="alert">${emailError}</p>
-                                <span id="emailFormatError" class="text-danger" role="alert"> </span>
-                                <div class="form-outline mb-4">
-                                    <label class="form-label" for="email">Email</label>
-                                    <input onblur="validatePassword()" onfocus="clearErrorPassword()" value="${sessionScope.email}" type="email" id="email" name="email" class="form-control form-control-lg" required />
                                 </div>
 
                                 <div class="form-outline mb-4">
                                     <label class="form-label" for="address">Địa chỉ</label>
-                                    <input onblur="validatePasswordConfirm()" onfocus="clearErrorPasswordConfirm()" type="text" value="${sessionScope.address}" id="address" name="address" class="form-control form-control-lg" required />
+                                    <input type="text" value="${sessionScope.address}" id="address" name="address" class="form-control form-control-lg" required />
                                 </div>
 
                                 <div class="form-outline mb-4">

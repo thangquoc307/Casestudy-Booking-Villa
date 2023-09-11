@@ -15,6 +15,6 @@ public interface IAccountRepository {
     void deleteAccountAndCustomer (int accountCode);
     Account getAccountByAccountCode(int accountCode);
     List<String> login(String id, String password);
-
+    Account getUserNameByEmail(String email);
 
 }

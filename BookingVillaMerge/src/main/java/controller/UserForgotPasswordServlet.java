@@ -1,6 +1,7 @@
 package controller;
 
 
+import model.Account;
 import model.Customer;
 import service.account_service.AccountService;
 import service.account_service.IAccountService;
@@ -24,6 +25,12 @@ import java.util.Properties;
 
 @WebServlet(name = "ForgotPasswordServlet", value = "/forgot-password")
 public class UserForgotPasswordServlet extends HttpServlet {
+    private static int emailCount = 0;
+    private static final long TIME_LIMIT = 1 * 60 * 1000;
+    private static long lastEmailTime = 0;
+    private boolean hasSentEmail = false;
+    private static final long CONTENT_EXPIRATION = 1 * 60 * 1000;
+
     private static IAccountService accountService = new AccountService();
     private static ICustomerService iCustomerService = new CustomerService();
 
@@ -36,19 +43,41 @@ public class UserForgotPasswordServlet extends HttpServlet {
         }
         switch (action) {
             case "sendEmail":
-                String content = generateRandomNumbers();
-                String email = request.getParameter("email");
                 HttpSession session = request.getSession();
-                session.setAttribute("content", content);
-                session.setAttribute("email",email);
+                String email = request.getParameter("email");
+                session.setAttribute("email", email);
                 Customer customer = iCustomerService.getCustomerByEmail(email);
-                if (customer != null) {
-                    sendEmail("bondatfpt@gmail.com", "sfnpcaifbvtrdgbb", email, content);
-                    request.setAttribute("message","Chúng tôi đã gửi một gmail đến địa chỉ " + email);
-                    request.getRequestDispatcher("login.jsp").forward(request,response);
-                }else {
-                    request.setAttribute("message","Email không tồn tại");
-                    request.getRequestDispatcher("/login.jsp").forward(request,response);
+                Account account = accountService.getUserNameByEmail(email);
+                session.setAttribute("userName", account.getUserName());
+
+                if (session.getAttribute("emailSent") != null) {
+                    String attributeValue = "Email đã được gửi trong phiên làm việc hiện tại";
+                    String jsonResponse = "{\"attribute\":\"" + attributeValue + "\"}";
+                    response.setContentType("application/json");
+                    response.setCharacterEncoding("UTF-8");
+                    response.getWriter().write(jsonResponse);
+                } else {
+                    long currentTime = System.currentTimeMillis();
+                    if (customer != null && currentTime - lastEmailTime > TIME_LIMIT) {
+                        String content = generateRandomNumbers();
+                        session.setAttribute("content", content);
+                        sendEmail("bondatfpt@gmail.com", "sfnpcaifbvtrdgbb", email, content);
+                        lastEmailTime = System.currentTimeMillis();
+                        long contentSentTime = System.currentTimeMillis();
+                        session.setAttribute("contentSentTime", contentSentTime);
+                        session.setAttribute("emailSent", true);
+                        String attributeValue = "Chúng tôi đã gửi một email đến địa chỉ email: " + email;
+                        String jsonResponse = "{\"attribute\":\"" + attributeValue + "\"}";
+                        response.setContentType("application/json");
+                        response.setCharacterEncoding("UTF-8");
+                        response.getWriter().write(jsonResponse);
+                    } else {
+                        String attributeValue = "Email không tồn tại trong hệ thống trang web hoặc không đúng";
+                        String jsonResponse = "{\"attribute\":\"" + attributeValue + "\"}";
+                        response.setContentType("application/json");
+                        response.setCharacterEncoding("UTF-8");
+                        response.getWriter().write(jsonResponse);
+                    }
                 }
                 break;
             case "showFormGetPassword":
@@ -57,26 +86,40 @@ public class UserForgotPasswordServlet extends HttpServlet {
         }
     }
 
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
+        long confirmContent = System.currentTimeMillis();
+        long contentSentTime = (long) session.getAttribute("contentSentTime");
+        if (confirmContent - contentSentTime >= CONTENT_EXPIRATION) {
+            String content = generateRandomNumbers();
+            contentSentTime = System.currentTimeMillis();
+            session.setAttribute("content", content);
+            session.setAttribute("contentSentTime", contentSentTime);
+        }
         String content = (String) session.getAttribute("content");
         String email = (String) session.getAttribute("email");
         String contentConfirm = request.getParameter("randomNumber");
         String password = request.getParameter("password");
-        String passwordConfirm = request.getParameter("passwordConfirm");
-        if (content.equals(contentConfirm)){
-            accountService.getPassword(password,email);
+        if (content.equals(contentConfirm)) {
+            accountService.getPassword(password, email);
             response.sendRedirect("login.jsp");
-        }else {
-            request.setAttribute("ranDomNumberError","Mã xác nhận không đúng");
-            request.getRequestDispatcher("forgot-password-user.jsp").forward(request,response);
+        } else {
+            request.setAttribute("ranDomNumberError", "Mã xác nhận không đúng");
+            request.getRequestDispatcher("forgot-password-user.jsp").forward(request, response);
         }
-
     }
 
     private void sendEmail(String senderEmail, String senderPassword, String recipientEmail, String content) {
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - lastEmailTime < TIME_LIMIT) {
+            return;
+        } else if (hasSentEmail) {
+            return;
+        }
+
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
@@ -102,14 +145,22 @@ public class UserForgotPasswordServlet extends HttpServlet {
             String htmlContent = "<html><body>";
             htmlContent += "<h1>Xin chào! Tôi là admin trang web bookingvilla.com</h1>";
             htmlContent += "<p>Đây là một email gửi tự động có nội dung là 6 số ngẫu nhiên để lấy lại mật khẩu.</p>";
+            htmlContent += " Mã xác nhận này chỉ có hiệu lực trong vòng 1 phút từ khi gửi đi.</p>";
             htmlContent += "<p>Click vào <a href=\"" + jspLink + "\">đây</a> và nhập 6 số sau để lấy lại mật khẩu:</p>";
             htmlContent += "<p><strong>" + content + "</strong></p>";
             htmlContent += "</body></html>";
 
             message.setContent(htmlContent, "text/html;charset=UTF-8");
             Transport.send(message);
+
+            lastEmailTime = currentTime;
+            emailCount++;
+            hasSentEmail = true;
+
         } catch (MessagingException e) {
             e.printStackTrace();
+            hasSentEmail = false;
+
         }
     }
 

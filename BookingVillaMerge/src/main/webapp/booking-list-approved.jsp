@@ -91,20 +91,8 @@
                 <td><c:out value="${booking.bookingTime}"/></td>
                 <td><fmt:formatNumber value="${booking.price}"/></td>
                 <td><fmt:formatNumber value="${booking.deposit}"/></td>
-                    <%--                <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="curDate"/>--%>
-<%--                                    <fmt:parseDate var="checkInDate" pattern="dd/MM/yyyy" value="${booking.checkIn}"/>--%>
-                    <%--                <fmt:parseDate value="${curDate}" pattern="yyyy-MM-dd" var="curentDate"/>--%>
-                    <%--                <c:set var="timeCheckIn" value="${(curentDate.getTime()-checkInDate.getTime())/(24*3600*1000)}"/>--%>
                 <td>
-                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updateModal"
-                            onclick="sendInformToModalUpdate('${booking.bookingId}','${booking.villaId}',
-                                    '${booking.checkIn}','${booking.checkOut}',
-                                    '${booking.checkInPersonName}','${booking.checkInPersonPhoneNumber}')">Sửa
-                    </button>
-
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                            onclick="sendInformToModalDelete('${booking.bookingId}','${booking.villaId}',
-                                    '${booking.checkIn}','${booking.checkOut}')">Hủy
+                    <button type="button" class="btn btn-secondary" disabled>Đã duyệt
                     </button>
                 </td>
             </tr>
@@ -146,34 +134,6 @@
     </div>
 </div>
 
-<div id="deleteModal" class="modal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form action="/booking?action=deleteBooking" method="post">
-                <div class="modal-header bg-danger">
-                    <h5 class="modal-title text-light">Hủy đặt villa</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p id="contentDelete1">Bạn chắc chắn muốn hủy đặt <b class="text-danger">villa <span
-                            id="villaIdDelete"></span></b>
-                        từ ngày <span id="checkInDelete" class="fw-bold"></span> đến ngày <span id="checkOutDelete"
-                                                                                                class="fw-bold"></span>
-                        <br><b><u>Lưu ý:</u> Hành động này không thể hoàn tác</b>
-                    </p>
-                    <p id="contentDelete2">Bạn chỉ có thể hủy booking vào trước 2 ngày so với ngày nhận phòng</p>
-                    <input type="hidden" id="bookingIdDelete" name="bookingIdDelete">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="btnDelete">Hủy
-                    </button>
-                    <button type="submit" class="btn btn-outline-danger" id="confirmDelete">Xác nhận</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
 </script>
@@ -184,15 +144,10 @@
     }
 
     function sendInformToModalDelete(bookingIdDelete, villaIdDelete, checkInDelete, checkOutDelete) {
-        let date = checkInDelete.split("/");
-        let dateString = date[1] + "/" + date [0] + "/" + date [2];
-        let checkIn = new Date(dateString);
-        console.log(checkIn);
+        let checkIn = new Date(checkInDelete);
         let currentDate = new Date();
-        console.log(currentDate);
-        let timeCheckIn = (checkIn.getTime() - currentDate) / (24 * 3600 * 1000);
-        console.log(timeCheckIn);
-        if (timeCheckIn < 0) {
+        let timeCheckIn = (checkIn.getTime() - currentDate.getTime()) / (24 * 3600 * 1000);
+        if (timeCheckIn < 1) {
             document.getElementById("confirmDelete").hidden = true;
             document.getElementById("btnDelete").textContent = "OK";
             document.getElementById("contentDelete1").hidden = true;

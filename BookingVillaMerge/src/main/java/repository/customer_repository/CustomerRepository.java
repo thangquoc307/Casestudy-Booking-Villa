@@ -20,8 +20,8 @@ public class CustomerRepository implements ICustomerRepository {
             "WHERE phone_number = ?;";
 
     private static final String UPDATE_CUSTOMER = "UPDATE customers\n" +
-            "SET name = ?, identity_number = ?, birthday = ?, gender = ?, phone_number = ?, \n" +
-            "\t\t\temail = ?, address = ?\n" +
+            "SET name = ?,  birthday = ?, gender = ?,\n" +
+            "address = ?\n" +
             "WHERE customer_code  = ?;";
     private static final String SELECT_CUSTOMER_BY_CUSTOMER_CODE = "SELECT * FROM customers\n" +
             "WHERE customer_code = ?";
@@ -127,19 +127,16 @@ public class CustomerRepository implements ICustomerRepository {
     }
 
     @Override
-    public void updateCustomer(String name, String identityNumber, String birthday, boolean gender,
-                               String phoneNumber, String email, String address, int customerCode) {
+    public void updateCustomer(String name, String birthday, boolean gender,
+                               String address, int customerCode) {
         Connection connection = BaseRepository.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_CUSTOMER);
             preparedStatement.setString(1, name);
-            preparedStatement.setString(2, identityNumber);
-            preparedStatement.setString(3, birthday);
-            preparedStatement.setBoolean(4, gender);
-            preparedStatement.setString(5, phoneNumber);
-            preparedStatement.setString(6, email);
-            preparedStatement.setString(7, address);
-            preparedStatement.setInt(8, customerCode);
+            preparedStatement.setString(2, birthday);
+            preparedStatement.setBoolean(3, gender);
+           preparedStatement.setString(4, address);
+            preparedStatement.setInt(5, customerCode);
             preparedStatement.executeUpdate();
             connection.close();
         } catch (SQLException e) {

@@ -34,7 +34,7 @@
                            value="<c:out value='${employee.identity_number}'/>"/>
 
                     <label for="birthday">Ngày sinh:</label>
-                    <input type="hidden" id="birthday" name="birthday"
+                    <input type="date" id="birthday" name="birthday"
                            value="<c:out value='${employee.birthday}'/>"/>
 
                     <label for="gender">Giới tính:</label>

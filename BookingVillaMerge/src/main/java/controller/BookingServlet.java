@@ -79,7 +79,7 @@ public class BookingServlet extends HttpServlet {
     private void showListApproved(HttpServletRequest request, HttpServletResponse response) {
         List<Booking> bookingListApproved = bookingService.showListApproved();
         request.setAttribute("bookingList",bookingListApproved);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/booking-list.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/booking-list-approved.jsp");
         try {
             requestDispatcher.forward(request,response);
         } catch (ServletException | IOException e) {
@@ -100,7 +100,7 @@ public class BookingServlet extends HttpServlet {
     private void showListDelete(HttpServletRequest request, HttpServletResponse response) {
         List<Booking> bookingListDelete = bookingService.showListDelete();
         request.setAttribute("bookingList",bookingListDelete);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/booking-list.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/booking-list-delete.jsp");
         try {
             requestDispatcher.forward(request,response);
         } catch (ServletException | IOException e) {
@@ -128,16 +128,16 @@ public class BookingServlet extends HttpServlet {
     }
 
     private void createBooking(HttpServletRequest request, HttpServletResponse response){
-        System.out.println("tới servlet");
-        String checkIn = request.getParameter("checkIn");
-        String checkOut = request.getParameter("checkOut");
-        int priceBooking = Integer.parseInt(request.getParameter("priceBooking"));
-        int deposit = Integer.parseInt(request.getParameter("deposit"));
-        String checkInName = request.getParameter("checkInName");
-        String checkInPhoneNumber = request.getParameter("checkInPhoneNumber");
-        int villaId = Integer.parseInt(request.getParameter("villaId"));
-        int customerCode = Integer.parseInt(request.getParameter("customerCode"));
-        bookingService.save(new Booking(checkIn,checkOut,priceBooking,deposit,checkInName,checkInPhoneNumber,
+        String checkIn = request.getParameter("checkInBooking");
+        String checkOut = request.getParameter("checkOutBooking");
+//        String bookingDate = request.getParameter("bookingDateBooking");
+        int price = Integer.parseInt(request.getParameter("priceBooking"));
+        int deposit = Integer.parseInt(request.getParameter("depositBooking"));
+        String checkInName = request.getParameter("checkInNameBooking");
+        String checkInPhoneNumber = request.getParameter("checkInPhoneNumberBooking");
+        int villaId = Integer.parseInt(request.getParameter("villaIdBooking"));
+        int customerCode = Integer.parseInt(request.getParameter("customerCodeBooking"));
+        bookingService.save(new Booking(checkIn,checkOut,price,deposit,checkInName,checkInPhoneNumber,
                 villaId,customerCode));
         try {
             response.sendRedirect("/booking");

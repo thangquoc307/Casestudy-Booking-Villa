@@ -42,7 +42,7 @@
     <div id="nav2">
         <h2>QUẢN LÍ NHÂN VIÊN</h2>
         <a style="" href="/employee?action=createEmployee">
-            <button type="button" class="btn btn-outline-primary">Thêm</button>
+            <button type="button" class="btn btn-primary">Thêm</button>
         </a>
         <div class="header">
             <table class="table table-striped">
@@ -80,13 +80,13 @@
                         <td><c:out value="${b.user_name}"/></td>
                         <td>
                             <a href="/employee?action=updateEmployee&id=${b.getEmployee_code()}">
-                                <button type="button" class="btn btn-outline-success">Sửa
+                                <button type="button" class="btn btn-warning">Sửa
                                 </button>
                             </a>
                         </td>
                         <td>
                             <button onclick="sendInForToModal('${b.employee_code}','${b.name}')" type="button"
-                                    class="btn btn-outline-danger"
+                                    class="btn btn-danger"
                                     data-bs-toggle="modal" data-bs-target="#exampleModal">Xoá
                             </button>
                         </td>

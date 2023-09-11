@@ -4,6 +4,7 @@ public class Booking {
     private int bookingId;
     private String checkIn;
     private String checkOut;
+    private String bookingTime;
     private int price;
     private int deposit;
     private String checkInPersonName;
@@ -18,10 +19,11 @@ public class Booking {
         this.checkInPersonPhoneNumber = checkInPersonPhoneNumber;
     }
 
-    public Booking(int bookingId, String checkIn, String checkOut, int price, int deposit, int villaId) {
+    public Booking(int bookingId, String checkIn, String checkOut, String bookingTime, int price, int deposit, int villaId) {
         this.bookingId = bookingId;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
+        this.bookingTime = bookingTime;
         this.price = price;
         this.deposit = deposit;
         this.villaId = villaId;
@@ -38,13 +40,27 @@ public class Booking {
         this.villaId = villaId;
         this.customerCode = customerCode;
     }
+    public Booking(String checkIn, String checkOut,String bookingTime, int price, int deposit,
+                   String checkInPersonName, String checkInPersonPhoneNumber, int villaId,
+                   int customerCode) {
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
+        this.bookingTime = bookingTime;
+        this.price = price;
+        this.deposit = deposit;
+        this.checkInPersonName = checkInPersonName;
+        this.checkInPersonPhoneNumber = checkInPersonPhoneNumber;
+        this.villaId = villaId;
+        this.customerCode = customerCode;
+    }
 
-    public Booking(int bookingId, String checkIn, String checkOut, int price, int deposit,
+    public Booking(int bookingId, String checkIn, String checkOut, String bookingTime, int price, int deposit,
                    String checkInPersonName, String checkInPersonPhoneNumber, int villaId,
                    int customerCode, boolean isPending, boolean isDelete) {
         this.bookingId = bookingId;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
+        this.bookingTime = bookingTime;
         this.price = price;
         this.deposit = deposit;
         this.checkInPersonName = checkInPersonName;
@@ -141,5 +157,13 @@ public class Booking {
 
     public void setDelete(boolean delete) {
         isDelete = delete;
+    }
+
+    public String getBookingTime() {
+        return bookingTime;
+    }
+
+    public void setBookingTime(String bookingTime) {
+        this.bookingTime = bookingTime;
     }
 }

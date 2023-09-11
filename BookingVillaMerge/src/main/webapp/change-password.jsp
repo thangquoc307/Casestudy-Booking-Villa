@@ -8,18 +8,18 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Lấy lại mật khẩu</title>
+    <title>Đổi mật khẩu</title>
     <link rel="stylesheet" href="css_user/css/login_sign_up.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="css_index/main_page_css.css">
 </head>
-<body style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');background-size: cover">
-<section class="bg-image">
-    <div class="mask d-flex align-items-center gradient-custom-3">
+<body style="background-image: url('css_user/css/logo/img4.jpg');background-size: cover">
+<section class="bg-image" >
+    <div class="mask d-flex align-items-center">
         <div class="container h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
-                <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                <div class="col-12 col-md-9 col-lg-7 col-xl-6" style="margin-top: 10%">
                     <div class="card" style="border-radius: 15px;">
                         <div class="card-body p-5">
                             <div class="form-outline mb-4">

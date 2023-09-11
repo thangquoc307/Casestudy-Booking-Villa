@@ -9,7 +9,7 @@ public interface ICustomerService {
     Customer getCustomerByIdentityNumber(String identityNumber);
     Customer getCustomerByEmail (String email);
     Customer getCustomerByCustomerCode(int customerCode);
-    void  updateCustomer(String name, String identityNumber, String birthday, boolean gender,
-                         String phoneNumber,String email,String address,int customerCode);
+    void  updateCustomer(String name,String birthday, boolean gender
+                        ,String address,int customerCode);
 
 }

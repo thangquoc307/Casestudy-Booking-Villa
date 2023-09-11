@@ -23,6 +23,7 @@
             <div class="link-items">
                 <a class="btn btn-info content " href="/login?action=back">Trang chủ</a>
                 <a href="/booking?action=showListPending" class="backgroundcolor-2 hover">Booking</a>
+                <a href="/login?action=logout" class="backgroundcolor-2 hover">Đăng xuất</a>
             </div>
         </div>
 
@@ -135,7 +136,7 @@
                                 <h6 class="mb-0">Ngày sinh</h6>
                             </div>
                             <div class="col-sm-9 text-secondary content">
-                                ${sessionScope.birthday}
+                                <input style="border: none;background-color: white;  font-weight: bold; color: #6C757D;" disabled type="date" value="${sessionScope.dateOfBirth}">
                             </div>
                         </div>
                         <hr>
@@ -183,74 +184,74 @@
                     </div>
                 </div>
 
-                <div class="row gutters-sm">
-                    <div class="col-sm-6 mb-3">
-                        <div class="card h-100 boxshadow-outset">
-                            <div class="card-body">
-                                <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Project
-                                    Status</h6>
-                                <small>Web Design</small>
-                                <div class="progress mb-3" style="height: 5px">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 80%"
-                                         aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <small>Website Markup</small>
-                                <div class="progress mb-3" style="height: 5px">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 72%"
-                                         aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <small>One Page</small>
-                                <div class="progress mb-3" style="height: 5px">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 89%"
-                                         aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <small>Mobile Template</small>
-                                <div class="progress mb-3" style="height: 5px">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 55%"
-                                         aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <small>Backend API</small>
-                                <div class="progress mb-3" style="height: 5px">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 66%"
-                                         aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 mb-3">
-                        <div class="card h-100 boxshadow-outset">
-                            <div class="card-body">
-                                <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Project
-                                    Status</h6>
-                                <small>Web Design</small>
-                                <div class="progress mb-3" style="height: 5px">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 80%"
-                                         aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <small>Website Markup</small>
-                                <div class="progress mb-3" style="height: 5px">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 72%"
-                                         aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <small>One Page</small>
-                                <div class="progress mb-3" style="height: 5px">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 89%"
-                                         aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <small>Mobile Template</small>
-                                <div class="progress mb-3" style="height: 5px">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 55%"
-                                         aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <small>Backend API</small>
-                                <div class="progress mb-3" style="height: 5px">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 66%"
-                                         aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<%--                <div class="row gutters-sm">--%>
+<%--                    <div class="col-sm-6 mb-3">--%>
+<%--                        <div class="card h-100 boxshadow-outset">--%>
+<%--                            <div class="card-body">--%>
+<%--                                <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Project--%>
+<%--                                    Status</h6>--%>
+<%--                                <small>Web Design</small>--%>
+<%--                                <div class="progress mb-3" style="height: 5px">--%>
+<%--                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 80%"--%>
+<%--                                         aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>--%>
+<%--                                </div>--%>
+<%--                                <small>Website Markup</small>--%>
+<%--                                <div class="progress mb-3" style="height: 5px">--%>
+<%--                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 72%"--%>
+<%--                                         aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>--%>
+<%--                                </div>--%>
+<%--                                <small>One Page</small>--%>
+<%--                                <div class="progress mb-3" style="height: 5px">--%>
+<%--                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 89%"--%>
+<%--                                         aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>--%>
+<%--                                </div>--%>
+<%--                                <small>Mobile Template</small>--%>
+<%--                                <div class="progress mb-3" style="height: 5px">--%>
+<%--                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 55%"--%>
+<%--                                         aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>--%>
+<%--                                </div>--%>
+<%--                                <small>Backend API</small>--%>
+<%--                                <div class="progress mb-3" style="height: 5px">--%>
+<%--                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 66%"--%>
+<%--                                         aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>--%>
+<%--                                </div>--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                    <div class="col-sm-6 mb-3">--%>
+<%--                        <div class="card h-100 boxshadow-outset">--%>
+<%--                            <div class="card-body">--%>
+<%--                                <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Project--%>
+<%--                                    Status</h6>--%>
+<%--                                <small>Web Design</small>--%>
+<%--                                <div class="progress mb-3" style="height: 5px">--%>
+<%--                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 80%"--%>
+<%--                                         aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>--%>
+<%--                                </div>--%>
+<%--                                <small>Website Markup</small>--%>
+<%--                                <div class="progress mb-3" style="height: 5px">--%>
+<%--                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 72%"--%>
+<%--                                         aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>--%>
+<%--                                </div>--%>
+<%--                                <small>One Page</small>--%>
+<%--                                <div class="progress mb-3" style="height: 5px">--%>
+<%--                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 89%"--%>
+<%--                                         aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>--%>
+<%--                                </div>--%>
+<%--                                <small>Mobile Template</small>--%>
+<%--                                <div class="progress mb-3" style="height: 5px">--%>
+<%--                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 55%"--%>
+<%--                                         aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>--%>
+<%--                                </div>--%>
+<%--                                <small>Backend API</small>--%>
+<%--                                <div class="progress mb-3" style="height: 5px">--%>
+<%--                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 66%"--%>
+<%--                                         aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>--%>
+<%--                                </div>--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
             </div>
         </div>
     </div>
@@ -259,13 +260,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Xóa tài khoản</h1>
+                <h1 style="margin-left: 35%;    color: red;font-weight: bold;" class="modal-title fs-5" id="exampleModalLabel">Xóa tài khoản</h1>
             </div>
             <form action="/login?action=delete&accountCode=${sessionScope.accountCode}" method="post">
                 <div class="modal-body">
                     <p class="text-danger" role="alert">${deleteAccountError}</p>
-                    <span>Việc xóa tài khoản sẽ khiến bạn không thể đăng nhập vào trang web
-                        và không thể hoàn tác.
+                    <span style="color: red">Việc xóa tài khoản sẽ khiến bạn không thể đăng nhập vào trang web
+                        và hành động này không thể hoàn tác.
                 <br> Bạn có chắc chắn muốn xóa tài khoản ?</span>
                 </div>
                 <div class="modal-footer">

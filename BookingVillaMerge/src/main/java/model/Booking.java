@@ -6,6 +6,9 @@ public class Booking {
     private int id;
     private String checkIn;
 
+
+
+
     public String getPending() {
         return pending;
     }
@@ -14,7 +17,8 @@ public class Booking {
         this.pending = pending;
     }
 
-    private String  checkOut;
+    private String checkOut;
+    private String bookingDate;
     private int price;
     private int deposit;
     private String checkInPersonName;
@@ -42,11 +46,28 @@ public class Booking {
                 '}';
     }
 
-    public Booking(int id, String checkIn, String checkOut, int price, int deposit, String checkInPersonName,
+    public Booking(int id, String checkIn, String checkOut, String bookingDate, int price, int deposit, String checkInPersonName, String checkInPersonPhoneNumber, int villaId, int customerCode, boolean isPending, boolean isDelete, String pending) {
+        this.id = id;
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
+        this.bookingDate = bookingDate;
+        this.price = price;
+        this.deposit = deposit;
+        this.checkInPersonName = checkInPersonName;
+        this.checkInPersonPhoneNumber = checkInPersonPhoneNumber;
+        this.villaId = villaId;
+        this.customerCode = customerCode;
+        this.isPending = isPending;
+        this.isDelete = isDelete;
+        this.pending = pending;
+    }
+
+    public Booking(int id, String checkIn, String checkOut, String bookingDate, int price, int deposit, String checkInPersonName,
                    String checkInPersonPhoneNumber, int villaId, int customerCode, boolean isPending) {
         this.id = id;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
+        this.bookingDate = bookingDate;
         this.price = price;
         this.deposit = deposit;
         this.checkInPersonName = (checkInPersonName == null) ? "" : checkInPersonName;
@@ -54,23 +75,28 @@ public class Booking {
         this.villaId = villaId;
         this.customerCode = customerCode;
         this.isPending = isPending;
-        if(isPending){pending="Đã duyệt";}else {
-            pending="Chưa duyệt";
+        if (isPending) {
+            pending = "Đã duyệt";
+        } else {
+            pending = "Chưa duyệt";
         }
     }
 
-    public Booking(String checkIn, String checkOut, int price, int deposit, int villaId) {
+    public Booking(String checkIn, String checkOut, String bookingDate, int price, int deposit, int villaId) {
         this.checkIn = checkIn;
         this.checkOut = checkOut;
+        this.bookingDate = bookingDate;
         this.price = price;
         this.deposit = deposit;
         this.villaId = villaId;
     }
-    public Booking(String checkIn, String checkOut, int price, int deposit,
+
+    public Booking(String checkIn, String checkOut, String bookingDate, int price, int deposit,
                    String checkInPersonName, String checkInPersonPhoneNumber, int villaId,
                    int customerCode, boolean isPending, boolean isDelete) {
         this.checkIn = checkIn;
         this.checkOut = checkOut;
+        this.bookingDate = bookingDate;
         this.price = price;
         this.deposit = deposit;
         this.checkInPersonName = checkInPersonName;
@@ -80,12 +106,22 @@ public class Booking {
         this.isPending = isPending;
         this.isDelete = isDelete;
     }
-    public Booking(int id, String checkIn, String checkOut, int price, int deposit,
+
+    public String getBookingDate() {
+        return bookingDate;
+    }
+
+    public void setBookingDate(String bookingDate) {
+        this.bookingDate = bookingDate;
+    }
+
+    public Booking(int id, String checkIn, String checkOut, String bookingDate, int price, int deposit,
                    String checkInPersonName, String checkInPersonPhoneNumber, int villaId,
                    int customerCode, boolean isPending, boolean isDelete) {
         this.id = id;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
+        this.bookingDate = bookingDate;
         this.price = price;
         this.deposit = deposit;
         this.checkInPersonName = checkInPersonName;
@@ -100,66 +136,87 @@ public class Booking {
     public int getId() {
         return id;
     }
+
     public void setId(int id) {
         this.id = id;
     }
+
     public String getCheckIn() {
         return checkIn;
     }
+
     public void setCheckIn(String checkIn) {
         this.checkIn = checkIn;
     }
+
     public String getCheckOut() {
         return checkOut;
     }
+
     public void setCheckOut(String checkOut) {
         this.checkOut = checkOut;
     }
+
     public int getPrice() {
         return price;
     }
+
     public void setPrice(int price) {
         this.price = price;
     }
+
     public int getDeposit() {
         return deposit;
     }
+
     public void setDeposit(int deposit) {
         this.deposit = deposit;
     }
+
     public String getCheckInPersonName() {
         return checkInPersonName;
     }
+
     public void setCheckInPersonName(String checkInPersonName) {
         this.checkInPersonName = checkInPersonName;
     }
+
     public String getCheckInPersonPhoneNumber() {
         return checkInPersonPhoneNumber;
     }
+
     public void setCheckInPersonPhoneNumber(String checkInPersonPhoneNumber) {
         this.checkInPersonPhoneNumber = checkInPersonPhoneNumber;
     }
+
     public int getVillaId() {
         return villaId;
     }
+
     public void setVillaId(int villaId) {
         this.villaId = villaId;
     }
+
     public int getCustomerCode() {
         return customerCode;
     }
+
     public void setCustomerCode(int customerCode) {
         this.customerCode = customerCode;
     }
+
     public boolean isPending() {
         return isPending;
     }
+
     public void setPending(boolean pending) {
         isDelete = pending;
     }
+
     public boolean isDelete() {
         return isDelete;
     }
+
     public void setDelete(boolean delete) {
         isDelete = delete;
     }

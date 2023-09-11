@@ -14,17 +14,20 @@
           integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="css_index/main_page_css.css">
 </head>
-<body style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');background-size: cover">
+<body style="background-image: url('css_user/css/logo/img4.jpg');background-size: cover">
 <section class="bg-image" >
-    <div class="mask d-flex align-items-center gradient-custom-3">
+    <div class="mask d-flex align-items-center">
         <div class="container h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
-                <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                <div class="col-12 col-md-9 col-lg-7 col-xl-6" style="margin-top: 10%">
                     <div class="card" style="border-radius: 15px;">
                         <div class="card-body p-5">
                             <div class="form-outline mb-4">
                                 <h2>Lấy lại mật khẩu</h2>
-                                <p>Xin vui lòng mở hộp thư gmail và nhập 6 số ngẫu nhiên vào ô sau</p>
+                                <p> Xin chào ${sessionScope.userName} !
+                                    <br>Bạn hãy hãy nhập 6 số ngẫu nhiên ở email vào ô sau.
+                                    <br>Mã xác nhận này chỉ có hiệu lực 1 phút kể từ khi gửi đi.
+                                </p>
                             </div>
                             <form action="/forgot-password" method="post">
 

@@ -12,7 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookingRepository implements IBookingRepository {
-    private static final String SELECT_BOOKING = "select * from bookings where is_delete =0 ";
+    private static final String SELECT_BOOKING = "select * from bookings where is_delete =0 " +
+            "order by `booking_time` ";
     private static final String UPDATE_BOOKING = "call approved_booking(?) ";
     private static final String DELETE_BOOKING = "call delete_booking(?) ";
 
@@ -27,6 +28,7 @@ public class BookingRepository implements IBookingRepository {
                 int id = resultSet.getInt("booking_id");
                 String checkIn = resultSet.getDate("check_in").toLocalDate().format(DateTimeFormatter.ISO_DATE.ofPattern("dd/MM/yyyy"));
                 String checkOut = resultSet.getDate("check_out").toLocalDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                String bookingDate = resultSet.getDate("booking_time").toLocalDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 //                Date checkIn = resultSet.getDate("check_in");
 //                Date checkOut = resultSet.getDate("check_out");
                 int price = resultSet.getInt("price");
@@ -36,7 +38,7 @@ public class BookingRepository implements IBookingRepository {
                 int villaId = resultSet.getInt("villa_id");
                 int customerCode = resultSet.getInt("customer_code");
                 boolean isPending = resultSet.getBoolean("is_pending");
-                list.add(new Booking(id, checkIn, checkOut, price, deposit, checkInPersonName, checkInPersonPhoneNumber,
+                list.add(new Booking(id, checkIn, checkOut,bookingDate, price, deposit, checkInPersonName, checkInPersonPhoneNumber,
                         villaId, customerCode, isPending));
             }
         } catch (SQLException e) {
